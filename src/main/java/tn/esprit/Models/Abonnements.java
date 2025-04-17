@@ -57,6 +57,6 @@ public class Abonnements {
 
     @Override
     public String toString() {
-        return "Abonnement => Id = "+ id +", Nom = " + nom + ", Prix = " + prix + ", Avantages = " + avantages + ", Type = " + type;
+        return nom;
     }
 }

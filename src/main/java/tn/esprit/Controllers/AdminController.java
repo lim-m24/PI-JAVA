@@ -30,6 +30,8 @@ public class AdminController {
     @FXML
     private Button btnAbonnements;
     @FXML
+    private Button btnGamifications;
+    @FXML
     private Text welcomeText;
 
     @FXML
@@ -66,6 +68,17 @@ public class AdminController {
             Node abonnementsView = loader.load();
             mainBorderPane.setCenter(abonnementsView);
             mainBorderPane.setRight(abonnementsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void loadGamifications() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Gamifications.fxml"));
+            Node gamificationView = loader.load();
+            mainBorderPane.setCenter(gamificationView);
+            mainBorderPane.setRight(gamificationView);
         } catch (IOException e) {
             e.printStackTrace();
         }

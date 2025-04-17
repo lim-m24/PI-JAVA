@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.GamificationController">
+    <VBox spacing="10" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" alignment="TOP_CENTER" style="-fx-padding: 20;">
+        <Label text="Gestion des Gamifications">
+            <font><Font name="System Bold" size="25.0" /></font>
+        </Label>
+
+        
+        <TableView fx:id="tableviewGamification" >
+            <columns>
+                <TableColumn fx:id="idCol" text="ID"/>
+                <TableColumn fx:id="abonnementCol" text="Abonnement ID"/>
+                <TableColumn fx:id="nomCol" text="Nom"/>
+                <TableColumn fx:id="descriptionCol" text="Description"/>
+                <TableColumn fx:id="typeCol" text="Type"/>
+                <TableColumn fx:id="conditionCol" text="Condition"/>
+                <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
+            </columns>
+        </TableView>
+
+        <VBox spacing="10" alignment="TOP_CENTER">
+            <ComboBox fx:id="abonnementCombo" promptText="Choisir un Abonnement"/>
+            <TextField fx:id="nomField" promptText="Nom"/>
+            <TextField fx:id="descriptionField" promptText="Description"/>
+            <TextField fx:id="typeField" promptText="Type"/>
+            <TextField fx:id="conditionField" promptText="Condition Gamification"/>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="addButton" style="-fx-background-color: #1e1e1e;" text="Ajouter" onAction="#handleAdd"/>
+                <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e;" text="Modifier" onAction="#handleUpdateAction" disable="true"/>
+            </HBox>
+        </VBox>
+    </VBox>
+</AnchorPane>
