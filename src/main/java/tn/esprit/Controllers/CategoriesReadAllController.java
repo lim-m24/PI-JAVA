@@ -5,11 +5,16 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import tn.esprit.Models.Categories;
 import tn.esprit.Services.CategorieService;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Insets;
+
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -59,6 +64,33 @@ public class CategoriesReadAllController {
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         coverCol.setCellValueFactory(new PropertyValueFactory<>("cover"));
+
+        coverCol.setCellFactory(column -> new TableCell<>() {
+            private final ImageView imageView = new ImageView();
+
+            {
+                imageView.setFitWidth(50);
+                imageView.setFitHeight(50);
+                imageView.setPreserveRatio(true);
+            }
+
+            @Override
+            protected void updateItem(String imageUrl, boolean empty) {
+                super.updateItem(imageUrl, empty);
+
+                if (empty || imageUrl == null || imageUrl.trim().isEmpty()) {
+                    setGraphic(null);
+                } else {
+                    try {
+                        Image image = new Image(imageUrl, 50, 50, true, true, true);
+                        imageView.setImage(image);
+                        setGraphic(imageView);
+                    } catch (Exception e) {
+                        setGraphic(null);
+                    }
+                }
+            }
+        });
         dateCol.setCellValueFactory(new PropertyValueFactory<>("date_creation"));
 
         addActionButtonsToTable();
@@ -180,8 +212,8 @@ public class CategoriesReadAllController {
             return false;
         }
 
-        if (!cover.matches("^(https?|ftp)://.*$")) {
-            showAlert(Alert.AlertType.WARNING, "Validation Error", "Cover must be a valid URL.");
+        if (cover.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "Cover field must not be empty.");
             return false;
         }
 
@@ -193,6 +225,20 @@ public class CategoriesReadAllController {
         alert.setHeaderText(null);
         alert.setContentText(content);
         alert.showAndWait();
+    }
+    @FXML
+    private void handleUploadImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Cover Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File file = fileChooser.showOpenDialog(null);
+
+        if (file != null) {
+            String imageUrl = file.toURI().toString();
+            coverField.setText(imageUrl);
+        }
     }
 
 

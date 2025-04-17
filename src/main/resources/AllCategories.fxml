@@ -32,7 +32,9 @@
         <VBox spacing="10" alignment="TOP_CENTER">
             <TextField fx:id="nomField" promptText="Nom" />
             <TextField fx:id="descriptionField" promptText="Description" />
+            <Button style="-fx-background-color: #1e1e1e;" text="Upload Cover" onAction="#handleUploadImage" />
             <TextField fx:id="coverField" promptText="Cover" />
+
 
             <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e;" text="Update" onAction="#handleUpdateAction" disable="true" />
             <Button fx:id="addButton" style="-fx-background-color: #1e1e1e;" text="Add New Category" onAction="#handleAdd" />

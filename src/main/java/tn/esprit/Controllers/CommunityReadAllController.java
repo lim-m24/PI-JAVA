@@ -6,12 +6,17 @@ import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import tn.esprit.Models.Community;
 import tn.esprit.Models.Categories;
 import tn.esprit.Services.CommunityService;
 import tn.esprit.Services.CategorieService;
 import javafx.scene.layout.HBox;
 import javafx.geometry.Insets;
+
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +63,7 @@ public class CommunityReadAllController {
     private final CommunityService communityService = new CommunityService();
     private final CategorieService categoryService = new CategorieService();
     private Community selectedCommunity;
-    private static final double ROW_HEIGHT = 50.0;
+    private static final double ROW_HEIGHT = 60.0;
     private final Map<Integer, String> categoryNameMap = new HashMap<>();
 
     @FXML
@@ -75,7 +80,33 @@ public class CommunityReadAllController {
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-        coverCol.setCellValueFactory(new PropertyValueFactory<>("cover"));
+        coverCol.setCellFactory(column -> new TableCell<>() {
+            private final ImageView imageView = new ImageView();
+
+            {
+                imageView.setFitWidth(50);
+                imageView.setFitHeight(50);
+                imageView.setPreserveRatio(true);
+            }
+
+            @Override
+            protected void updateItem(String imageUrl, boolean empty) {
+                super.updateItem(imageUrl, empty);
+
+                if (empty || imageUrl == null || imageUrl.trim().isEmpty()) {
+                    setGraphic(null);
+                } else {
+                    try {
+                        Image image = new Image(imageUrl, 50, 50, true, true, true);
+                        imageView.setImage(image);
+                        setGraphic(imageView);
+                    } catch (Exception e) {
+                        setGraphic(null);
+                    }
+                }
+            }
+
+        });
         nbrCol.setCellValueFactory(new PropertyValueFactory<>("nbr_membre"));
         statutCol.setCellValueFactory(new PropertyValueFactory<>("statut"));
         categoryCol.setCellValueFactory(cellData ->
@@ -268,6 +299,19 @@ public class CommunityReadAllController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @FXML
+    private void handleUploadImage() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select Cover Image");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+        );
+        File file = fileChooser.showOpenDialog(null);
 
+        if (file != null) {
+            String imageUrl = file.toURI().toString();
+            coverField.setText(imageUrl);
+        }
+    }
 
 }
