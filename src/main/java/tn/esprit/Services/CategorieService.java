@@ -37,11 +37,6 @@ public class CategorieService implements ICategorie<Categories> {
     }
 
     @Override
-    public ArrayList<Categories> getAll() {
-        return null;
-    }
-
-    @Override
     public List<Categories> readAll(){
         List<Categories> CatList = new ArrayList<>();
         String requete = "Select * from categories";
@@ -60,11 +55,6 @@ public class CategorieService implements ICategorie<Categories> {
             throw new RuntimeException(e);
         }
         return CatList;
-    }
-
-    @Override
-    public List<Categories> Rechreche(String recherche) {
-        return List.of();
     }
 
     @Override
@@ -87,11 +77,6 @@ public class CategorieService implements ICategorie<Categories> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void Delete(Categories categories) {
-
     }
 
     @Override

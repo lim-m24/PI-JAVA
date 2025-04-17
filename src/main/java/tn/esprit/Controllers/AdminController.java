@@ -1,29 +1,21 @@
 package tn.esprit.Controllers;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import tn.esprit.Models.Categories;
 import tn.esprit.Services.CategorieService;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.List;
 
 public class AdminController {
     private final CategorieService service=new CategorieService();
@@ -35,6 +27,8 @@ public class AdminController {
     private BorderPane mainBorderPane;
     @FXML
     private Button CategoriesBTN;
+    @FXML
+    private Button btnAbonnements;
     @FXML
     private Text welcomeText;
 
@@ -61,6 +55,17 @@ public class AdminController {
             Node categoriesView = loader.load();
             mainBorderPane.setCenter(categoriesView);
             mainBorderPane.setRight(categoriesView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void loadAbonnements() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Abonnements.fxml"));
+            Node abonnementsView = loader.load();
+            mainBorderPane.setCenter(abonnementsView);
+            mainBorderPane.setRight(abonnementsView);
         } catch (IOException e) {
             e.printStackTrace();
         }

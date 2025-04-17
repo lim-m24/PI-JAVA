@@ -25,6 +25,9 @@
             <Button  fx:id="CategoriesBTN" text="Categories" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllCategories"/>
             <Button text="Communities" style="-fx-text-fill: white; -fx-background-color: transparent;" />
          </VBox>
+
+         <Button fx:id="btnAbonnements" text="Abonnements" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAbonnements"/>
+
       </VBox>
    </left>
    <center>
