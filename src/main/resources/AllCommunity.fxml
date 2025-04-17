@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.CommunityReadAllController">
+    <VBox spacing="10" alignment="TOP_CENTER"
+          AnchorPane.topAnchor="0"
+          AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0"
+          AnchorPane.bottomAnchor="0"
+          style="-fx-padding: 20;">
+        <Label text="Community" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+
+        <TableView fx:id="tableviewCommunity" prefHeight="700" prefWidth="700">
+            <columns>
+                <TableColumn fx:id="idCol" prefWidth="75.0" text="Id" />
+                <TableColumn fx:id="nomCol" prefWidth="75.0" text="Nom" />
+                <TableColumn fx:id="descriptionCol" prefWidth="75.0" text="Description" />
+                <TableColumn fx:id="coverCol" prefWidth="75.0" text="Cover" />
+                <TableColumn fx:id="categoryCol" prefWidth="100.0" text="Category" />
+                <TableColumn fx:id="nbrCol" prefWidth="100.0" text="Nbr Membre" />
+                <TableColumn fx:id="statutCol" prefWidth="100.0" text="Statut" />
+                <TableColumn fx:id="createdAtCol" prefWidth="114.0" text="Created At" />
+                <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
+            </columns>
+        </TableView>
+
+        <VBox spacing="10" alignment="TOP_CENTER">
+
+            <TextField fx:id="nomField" promptText="Nom" />
+            <TextField fx:id="descriptionField" promptText="Description" />
+            <TextField fx:id="coverField" promptText="Cover" />
+            <TextField fx:id="nbrMembreField" promptText="Nbr Membres" />
+
+            <ComboBox fx:id="categoryComboBox" promptText="Select Category"/>
+
+            <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e;" text="Update" onAction="#handleUpdateAction" disable="true" />
+            <Button fx:id="addButton" style="-fx-background-color: #1e1e1e;" text="Add New Community" onAction="#handleAdd" />
+        </VBox>
+    </VBox>
+</AnchorPane>

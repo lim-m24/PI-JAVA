@@ -132,36 +132,47 @@ public class AbonnementsController {
 
     @FXML
     void handleAdd(ActionEvent event) {
+        if (!validateForm()) {
+            showAlert("Please fill in all fields correctly.");
+            return;
+        }
+
         Abonnements newAbonnement = new Abonnements(
                 nomField.getText(),
                 Double.parseDouble(prixField.getText()),
                 avantagesField.getText(),
                 typeField.getText()
         );
+
         AbonnementService.Add(newAbonnement);
-        System.out.println("Category added: " + newAbonnement.getNom());
+        System.out.println("Abonnement added: " + newAbonnement.getNom());
 
         initialize();
         clearForm();
     }
 
+
     @FXML
     void handleUpdateAction(ActionEvent event) {
-        if (selectedAbonnement != null) {
-            selectedAbonnement.setNom(nomField.getText());
-            selectedAbonnement.setPrix(Double.parseDouble(prixField.getText()));
-            selectedAbonnement.setAvantages(avantagesField.getText());
-            selectedAbonnement.setType(typeField.getText());
-
-            AbonnementService.Update(selectedAbonnement);
-            updateButton.setDisable(true);
-            addButton.setDisable(false);
-            System.out.println("Abonnement updated: " + selectedAbonnement.getNom());
-
-            initialize();
-            clearForm();
+        if (selectedAbonnement == null || !validateForm()) {
+            showAlert("Please select an abonnement and fill in all fields correctly.");
+            return;
         }
+
+        selectedAbonnement.setNom(nomField.getText());
+        selectedAbonnement.setPrix(Double.parseDouble(prixField.getText()));
+        selectedAbonnement.setAvantages(avantagesField.getText());
+        selectedAbonnement.setType(typeField.getText());
+
+        AbonnementService.Update(selectedAbonnement);
+        System.out.println("Abonnement updated: " + selectedAbonnement.getNom());
+
+        updateButton.setDisable(true);
+        addButton.setDisable(false);
+        initialize();
+        clearForm();
     }
+
 
     private void clearForm() {
         nomField.clear();
@@ -170,4 +181,47 @@ public class AbonnementsController {
         typeField.clear();
         updateButton.setDisable(true);
     }
+
+    private boolean validateForm() {
+        boolean isValid = true;
+
+        if (nomField.getText().trim().isEmpty()) {
+            nomField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else {
+            nomField.setStyle("");
+        }
+
+        try {
+            Double.parseDouble(prixField.getText());
+            prixField.setStyle("");
+        } catch (NumberFormatException e) {
+            prixField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        }
+
+        if (avantagesField.getText().trim().isEmpty()) {
+            avantagesField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else {
+            avantagesField.setStyle("");
+        }
+
+        if (typeField.getText().trim().isEmpty()) {
+            typeField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else {
+            typeField.setStyle("");
+        }
+
+        return isValid;
+    }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Form Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

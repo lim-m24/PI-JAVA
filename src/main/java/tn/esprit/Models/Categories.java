@@ -58,8 +58,7 @@ public class Categories {
 
     @Override
     public String toString() {
-        return "Categorie => Id = " + id + ", Nom = " + nom + ", Description = " + description +
-                ", Cover = " + cover + ", Date = " + date_creation;
+        return nom;
     }
 
 }

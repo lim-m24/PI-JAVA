@@ -120,32 +120,30 @@ public class CategoriesReadAllController {
 
     @FXML
     private void handleUpdateAction() {
-        if (selectedCategory != null) {
-            selectedCategory.setNom(nomField.getText());
-            selectedCategory.setDescription(descriptionField.getText());
-            selectedCategory.setCover(coverField.getText());
+        if (selectedCategory == null || !validateForm()) return;
 
-            LocalDateTime creationDate = selectedCategory.getDate_creation();
-            selectedCategory.setDate_creation(creationDate);
+        selectedCategory.setNom(nomField.getText().trim());
+        selectedCategory.setDescription(descriptionField.getText().trim());
+        selectedCategory.setCover(coverField.getText().trim());
 
-            CategorieService.Update(selectedCategory);
-            updateButton.setDisable(true);
-            addButton.setDisable(false);
-            System.out.println("Category updated: " + selectedCategory.getNom());
+        CategorieService.Update(selectedCategory);
+        updateButton.setDisable(true);
+        addButton.setDisable(false);
+        System.out.println("Category updated: " + selectedCategory.getNom());
 
-            initialize();
-            clearForm();
-        }
+        initialize();
+        clearForm();
     }
 
     @FXML
     private void handleAdd() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
+        if (!validateForm()) return;
 
+        LocalDateTime currentDateTime = LocalDateTime.now();
         Categories newCategory = new Categories(
-                nomField.getText(),
-                descriptionField.getText(),
-                coverField.getText(),
+                nomField.getText().trim(),
+                descriptionField.getText().trim(),
+                coverField.getText().trim(),
                 currentDateTime
         );
         CategorieService.Add(newCategory);
@@ -161,4 +159,41 @@ public class CategoriesReadAllController {
         coverField.clear();
         updateButton.setDisable(true);
     }
+
+    private boolean validateForm() {
+        String nom = nomField.getText().trim();
+        String description = descriptionField.getText().trim();
+        String cover = coverField.getText().trim();
+
+        if (nom.isEmpty() || description.isEmpty() || cover.isEmpty()) {
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "All fields must be filled.");
+            return false;
+        }
+
+        if (nom.length() < 3) {
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "Nom must be at least 3 characters.");
+            return false;
+        }
+
+        if (description.length() < 10) {
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "Description must be at least 10 characters.");
+            return false;
+        }
+
+        if (!cover.matches("^(https?|ftp)://.*$")) {
+            showAlert(Alert.AlertType.WARNING, "Validation Error", "Cover must be a valid URL.");
+            return false;
+        }
+
+        return true;
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+
 }

@@ -23,7 +23,7 @@
          <Button fx:id="btnCommunities" text="Communities" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#toggleCommunitiesSubmenu"/>
          <VBox fx:id="communitiesSubmenu" spacing="5" visible="false" managed="false" style="-fx-padding: 0 0 0 15;">
             <Button  fx:id="CategoriesBTN" text="Categories" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllCategories"/>
-            <Button text="Communities" style="-fx-text-fill: white; -fx-background-color: transparent;" />
+            <Button  fx:id="CommunityBTN" text="Communities" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllCommunity"/>
          </VBox>
 
          <Button fx:id="btnAbonnements" text="Abonnements" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAbonnements"/>

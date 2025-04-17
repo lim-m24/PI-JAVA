@@ -108,8 +108,16 @@ public class GamificationController {
 
     @FXML
     private void handleAdd() {
+        if (!validateForm()) {
+            showAlert("Please fill in all fields correctly.");
+            return;
+        }
+
         Abonnements selectedAbonnement = abonnementCombo.getSelectionModel().getSelectedItem();
-        if (selectedAbonnement == null) return;
+        if (selectedAbonnement == null) {
+            showAlert("Please select an abonnement.");
+            return;
+        }
 
         Gamification g = new Gamification(
                 selectedAbonnement.getId(),
@@ -124,11 +132,24 @@ public class GamificationController {
         clearFields();
     }
 
+
     @FXML
     private void handleUpdateAction() {
-        if (selectedGamification == null) return;
+        if (selectedGamification == null) {
+            showAlert("Please select a gamification to update.");
+            return;
+        }
+
+        if (!validateForm()) {
+            showAlert("Please fill in all fields correctly.");
+            return;
+        }
+
         Abonnements selectedAbonnement = abonnementCombo.getSelectionModel().getSelectedItem();
-        if (selectedAbonnement == null) return;
+        if (selectedAbonnement == null) {
+            showAlert("Please select an abonnement.");
+            return;
+        }
 
         selectedGamification.setTypeAbonnement(selectedAbonnement.getId());
         selectedGamification.setNom(nomField.getText());
@@ -140,6 +161,7 @@ public class GamificationController {
         loadGamifications();
         clearFields();
     }
+
 
     private void clearFields() {
         abonnementCombo.getSelectionModel().clearSelection();
@@ -168,5 +190,54 @@ public class GamificationController {
         updateButton.setDisable(false);
         addButton.setDisable(true);
     }
+    private boolean validateForm() {
+        boolean isValid = true;
+
+        if (nomField.getText().trim().isEmpty()) {
+            nomField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else {
+            nomField.setStyle("");
+        }
+
+        if (descriptionField.getText().trim().isEmpty()) {
+            descriptionField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else {
+            descriptionField.setStyle("");
+        }
+
+        if (typeField.getText().trim().isEmpty()) {
+            typeField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else {
+            typeField.setStyle("");
+        }
+
+        try {
+            Integer.parseInt(conditionField.getText());
+            conditionField.setStyle("");
+        } catch (NumberFormatException e) {
+            conditionField.setStyle("-fx-border-color: red;");
+            isValid = false;
+        }
+
+        if (abonnementCombo.getValue() == null) {
+            abonnementCombo.setStyle("-fx-border-color: red;");
+            isValid = false;
+        } else {
+            abonnementCombo.setStyle("");
+        }
+
+        return isValid;
+    }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Form Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
 }

@@ -32,6 +32,8 @@ public class AdminController {
     @FXML
     private Button btnGamifications;
     @FXML
+    private Button CommunityBTN;
+    @FXML
     private Text welcomeText;
 
     @FXML
@@ -57,6 +59,17 @@ public class AdminController {
             Node categoriesView = loader.load();
             mainBorderPane.setCenter(categoriesView);
             mainBorderPane.setRight(categoriesView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void loadAllCommunity() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllCommunity.fxml"));
+            Node communityView = loader.load();
+            mainBorderPane.setCenter(communityView);
+            mainBorderPane.setRight(communityView);
         } catch (IOException e) {
             e.printStackTrace();
         }
