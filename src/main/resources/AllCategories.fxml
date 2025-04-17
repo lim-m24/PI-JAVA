@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.CategoriesReadAllController">
+    <VBox spacing="10" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" alignment="TOP_CENTER">
+
+        <Label text="Categories" textAlignment="CENTER">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Label>
+
+        <!-- Main HBox to divide TableView and Form -->
+        <HBox spacing="20" alignment="TOP_CENTER">
+
+            <!-- TableView (left side) -->
+            <TableView fx:id="tableviewCategories" prefHeight="700" prefWidth="700">
+                <columns>
+                    <TableColumn fx:id="idCol" prefWidth="75.0" text="Id" />
+                    <TableColumn fx:id="nomCol" prefWidth="75.0" text="Nom" />
+                    <TableColumn fx:id="descriptionCol" prefWidth="75.0" text="Description" />
+                    <TableColumn fx:id="coverCol" prefWidth="75.0" text="Cover" />
+                    <TableColumn fx:id="dateCol" prefWidth="114.0" text="Date de creation" />
+                    <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
+                </columns>
+            </TableView>
+
+            <!-- Form (right side) -->
+            <VBox spacing="10" alignment="TOP_CENTER">
+                <TextField fx:id="nomField" promptText="Nom" />
+                <TextField fx:id="descriptionField" promptText="Description" />
+                <TextField fx:id="coverField" promptText="Cover" />
+
+                <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e;" text="Update" onAction="#handleUpdateAction" disable="true" />
+                <Button fx:id="addButton" style="-fx-background-color: #1e1e1e;" text="Add New Category" onAction="#handleAdd" />
+            </VBox>
+        </HBox>
+    </VBox>
+</AnchorPane>

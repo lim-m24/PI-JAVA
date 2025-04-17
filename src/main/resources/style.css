@@ -1,0 +1,28 @@
+/* Base button style */
+.button {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 10;
+}
+
+/* Hover effect */
+.button:hover {
+    -fx-background-color: #FF6347;
+    -fx-cursor: hand;
+}
+
+/* Specific hover effects for sidebar buttons */
+#btnUsers:hover, #btnCommunities:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.2);
+    -fx-text-fill: #FF6347;
+}
+
+/* Hover effect for submenu buttons */
+#usersSubmenu .button:hover, #communitiesSubmenu .button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+    -fx-text-fill: #FF6347;
+}
+.VBox{
+    -fx-background-color: #1e1e1e;
+}
