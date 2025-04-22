@@ -11,32 +11,42 @@
 <?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AbonnementsController">
-    <VBox spacing="10" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0" alignment="TOP_CENTER">
+    <HBox spacing="20">
 
-        <Label text="Abonnements" textAlignment="CENTER">
-            <font>
-                <Font name="System Bold" size="25.0" />
-            </font>
-        </Label>
-        <TableView fx:id="tableviewAbonnement" prefHeight="700" prefWidth="700">
-            <columns>
-                <TableColumn fx:id="idCol" prefWidth="75.0" text="Id" />
-                <TableColumn fx:id="nomCol" prefWidth="75.0" text="Nom" />
-                <TableColumn fx:id="prixCol" prefWidth="75.0" text="Prix" />
-                <TableColumn fx:id="avantagesCol" prefWidth="75.0" text="Avantages" />
-                <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
-                <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
-            </columns>
-        </TableView>
+        <!-- Left: Table View -->
+        <VBox spacing="10" alignment="TOP_CENTER" styleClass="card-style">
+            <Label text="Abonnements" textAlignment="CENTER">
+                <font>
+                    <Font name="System Bold" size="25.0" />
+                </font>
+            </Label>
+            <TableView fx:id="tableviewAbonnement" prefWidth="800" prefHeight="700" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="nomCol" prefWidth="75.0" text="Nom" />
+                    <TableColumn fx:id="prixCol" prefWidth="75.0" text="Prix" />
+                    <TableColumn fx:id="avantagesCol" prefWidth="150.0" text="Avantages" />
+                    <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
+                    <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
+                </columns>
+            </TableView>
+        </VBox>
 
-        <VBox spacing="10" alignment="TOP_CENTER">
+        <!-- Right: Add Form -->
+        <VBox fx:id="formContainer" spacing="10" alignment="TOP_CENTER" styleClass="card-style" HBox.hgrow="ALWAYS">
+            <Label styleClass="title-label" text="Add Abonnement">
+                <font>
+                    <Font name="System Bold" size="18.0"/>
+                </font>
+            </Label>
+
             <TextField fx:id="nomField" promptText="Nom" />
             <TextField fx:id="prixField" promptText="Prix" />
             <TextField fx:id="avantagesField" promptText="Avantages" />
             <TextField fx:id="typeField" promptText="Type" />
 
-            <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e;" text="Update" onAction="#handleUpdateAction" disable="true" />
-            <Button fx:id="addButton" style="-fx-background-color: #1e1e1e;" text="Add New Category" onAction="#handleAdd" />
+            <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Update" onAction="#handleUpdateAction" disable="true" />
+            <Button fx:id="addButton" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Add New Abonnement" onAction="#handleAdd" />
         </VBox>
-    </VBox>
+
+    </HBox>
 </AnchorPane>

@@ -29,9 +29,6 @@ public class AbonnementsController {
     private TextField avantagesField;
 
     @FXML
-    private TableColumn<Abonnements, Integer> idCol;
-
-    @FXML
     private TableColumn<Abonnements, String> nomCol;
 
     @FXML
@@ -64,7 +61,6 @@ public class AbonnementsController {
         List<Abonnements> abonnements = AbonnementService.readAll();
         ObservableList<Abonnements> observableList = FXCollections.observableList(abonnements);
         tableviewAbonnement.setItems(observableList);
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         prixCol.setCellValueFactory(new PropertyValueFactory<>("prix"));
         avantagesCol.setCellValueFactory(new PropertyValueFactory<>("avantages"));
@@ -90,8 +86,8 @@ public class AbonnementsController {
 
             {
                 hBox.setPadding(new Insets(5));
-                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
-                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
+                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
+                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
 
                 deleteButton.setOnAction(event -> {
                     Abonnements selectedAbonnement = getTableView().getItems().get(getIndex());

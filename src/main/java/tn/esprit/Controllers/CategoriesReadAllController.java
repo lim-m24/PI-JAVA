@@ -30,8 +30,6 @@ public class CategoriesReadAllController {
     @FXML
     private TableColumn<Categories, String> descriptionCol;
     @FXML
-    private TableColumn<Categories, Integer> idCol;
-    @FXML
     private TableColumn<Categories, String> nomCol;
     @FXML
     private TableView<Categories> tableviewCategories;
@@ -60,7 +58,6 @@ public class CategoriesReadAllController {
         List<Categories> categories = CategorieService.readAll();
         ObservableList<Categories> observableList = FXCollections.observableList(categories);
         tableviewCategories.setItems(observableList);
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         coverCol.setCellValueFactory(new PropertyValueFactory<>("cover"));
@@ -112,8 +109,9 @@ public class CategoriesReadAllController {
 
             {
                 hBox.setPadding(new Insets(5));
-                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
-                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
+                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
+                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
+
 
                 deleteButton.setOnAction(event -> {
                     Categories selectedCategory = getTableView().getItems().get(getIndex());

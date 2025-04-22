@@ -33,5 +33,6 @@
    </left>
    <center>
       <Text fx:id="welcomeText" text="Welcome to Syncylinky!" style="-fx-font-size: 30; -fx-fill: #1e1e1e;" />
+      <ImageView fx:id="logoImageView2" fitHeight="600" fitWidth="600" layoutX="20" layoutY="20" pickOnBounds="true" preserveRatio="true" />
    </center>
 </BorderPane>

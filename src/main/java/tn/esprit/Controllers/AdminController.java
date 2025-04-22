@@ -6,6 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.SplitPane;
+
 
 
 import javafx.scene.layout.BorderPane;
@@ -23,6 +25,8 @@ public class AdminController {
 
     @FXML
     private ImageView logoImageView;
+    @FXML
+    private ImageView logoImageView2;
     @FXML
     private BorderPane mainBorderPane;
     @FXML
@@ -45,6 +49,7 @@ public class AdminController {
             if (logoStream != null) {
                 Image logo = new Image(logoStream);
                 logoImageView.setImage(logo);
+                logoImageView2.setImage(logo);
             } else {
                 System.out.println("Logo image not found");
             }
@@ -58,7 +63,6 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllCategories.fxml"));
             Node categoriesView = loader.load();
             mainBorderPane.setCenter(categoriesView);
-            mainBorderPane.setRight(categoriesView);
         } catch (IOException e) {
             e.printStackTrace();
         }

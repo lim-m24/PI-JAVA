@@ -19,7 +19,6 @@ public class GamificationController {
     @FXML private TextField nomField, descriptionField, typeField, conditionField;
     @FXML private Button addButton, updateButton;
     @FXML private TableView<Gamification> tableviewGamification;
-    @FXML private TableColumn<Gamification, Integer> idCol;
     @FXML private TableColumn<Gamification, Integer> abonnementCol;
     @FXML private TableColumn<Gamification, String> nomCol, descriptionCol, typeCol;
     @FXML private TableColumn<Gamification, Integer> conditionCol;
@@ -34,7 +33,6 @@ public class GamificationController {
         loadComboAbonnements();
         loadGamifications();
 
-        idCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getId()).asObject());
         abonnementCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getTypeAbonnement()).asObject());
         nomCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getNom()));
         descriptionCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDescription()));
@@ -58,8 +56,8 @@ public class GamificationController {
 
             {
                 hBox.setPadding(new Insets(5));
-                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
-                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
+                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
+                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
 
                 deleteButton.setOnAction(event -> {
                     Gamification selectedGamification = getTableView().getItems().get(getIndex());

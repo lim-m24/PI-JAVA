@@ -31,8 +31,6 @@ public class CommunityReadAllController {
     @FXML
     private TableColumn<Community, String> descriptionCol;
     @FXML
-    private TableColumn<Community, Integer> idCol;
-    @FXML
     private TableColumn<Community, String> nomCol;
     @FXML
     private TableView<Community> tableviewCommunity;
@@ -77,7 +75,6 @@ public class CommunityReadAllController {
             categoryNameMap.put(cat.getId(), cat.getNom());
         }
 
-        idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
         coverCol.setCellFactory(column -> new TableCell<>() {
@@ -133,8 +130,8 @@ public class CommunityReadAllController {
 
             {
                 hBox.setPadding(new Insets(5));
-                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white;");
-                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white;");
+                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
+                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
 
                 deleteButton.setOnAction(event -> {
                     Community selectedCommunity = getTableView().getItems().get(getIndex());
