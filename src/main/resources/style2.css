@@ -88,3 +88,20 @@
 .table-view .table-row-cell:focused:selected {
     -fx-background-color: #e0f3ff;
 }
+
+.root {
+    -fx-background-color: #1A2A44;
+}
+
+.button {
+    -fx-background-radius: 10;
+    -fx-font-size: 14;
+}
+
+.button:hover {
+    -fx-background-color: #3B82F6;
+}
+
+.label {
+    -fx-text-fill: white;
+}

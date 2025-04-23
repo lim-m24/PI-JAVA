@@ -7,6 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.SplitPane;
+import javafx.event.ActionEvent;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 
@@ -57,6 +61,7 @@ public class AdminController {
             System.out.println("Error loading logo: " + e.getMessage());
         }
     }
+
     @FXML
     private void loadAllCategories() {
         try {
@@ -73,7 +78,6 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllCommunity.fxml"));
             Node communityView = loader.load();
             mainBorderPane.setCenter(communityView);
-            mainBorderPane.setRight(communityView);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -84,7 +88,6 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Abonnements.fxml"));
             Node abonnementsView = loader.load();
             mainBorderPane.setCenter(abonnementsView);
-            mainBorderPane.setRight(abonnementsView);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,7 +98,40 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/Gamifications.fxml"));
             Node gamificationView = loader.load();
             mainBorderPane.setCenter(gamificationView);
-            mainBorderPane.setRight(gamificationView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void loadHomepage(ActionEvent event) {
+        try {
+            // Load the communityFront.fxml file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/communityFront.fxml"));
+            Parent communityRoot = loader.load();
+
+            // Get the current stage (window) from the event
+            Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+            // Create a new scene with the loaded FXML content
+            Scene scene = new Scene(communityRoot);
+            scene.getStylesheets().add(getClass().getResource("/style2.css").toExternalForm());
+
+            // Set the scene to the stage
+            stage.setScene(scene);
+
+            // Reset any previous size constraints (optional, to avoid conflicts)
+            stage.setWidth(-1);
+            stage.setHeight(-1);
+
+            // Maximize the window to fill the screen
+            stage.setMaximized(true);
+
+            // Optional: If you want true fullscreen (no title bar, no borders), use this instead
+            // stage.setFullScreen(true);
+
+            // Show the stage
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -28,6 +28,7 @@
 
          <Button fx:id="btnAbonnements" text="Abonnements" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAbonnements"/>
          <Button fx:id="btnGamifications" text="Gamifications" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadGamifications"/>
+         <Button fx:id="homepage" text="Home Page" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadHomepage"/>
 
       </VBox>
    </left>
