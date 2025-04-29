@@ -13,7 +13,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -110,27 +109,18 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/communityFront.fxml"));
             Parent communityRoot = loader.load();
 
-            // Get the current stage (window) from the event
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
 
-            // Create a new scene with the loaded FXML content
             Scene scene = new Scene(communityRoot);
             scene.getStylesheets().add(getClass().getResource("/style2.css").toExternalForm());
 
-            // Set the scene to the stage
             stage.setScene(scene);
 
-            // Reset any previous size constraints (optional, to avoid conflicts)
             stage.setWidth(-1);
             stage.setHeight(-1);
 
-            // Maximize the window to fill the screen
             stage.setMaximized(true);
 
-            // Optional: If you want true fullscreen (no title bar, no borders), use this instead
-            // stage.setFullScreen(true);
-
-            // Show the stage
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

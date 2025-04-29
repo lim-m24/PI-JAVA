@@ -18,25 +18,41 @@ import java.util.List;
 public class MainController {
 
     @FXML
-    private HBox categorySlider; // Changed from GridPane to HBox
+    private HBox categorySlider;
 
     @FXML
     private GridPane communityGrid;
 
     private final CommunityService communityService = new CommunityService();
     private final CategorieService categorieService = new CategorieService();
+    @FXML
+    private Button viewButton;
 
     @FXML
     public void initialize() {
-        // Load categories dynamically
         loadCategories();
-
-        // Load communities dynamically
         loadCommunities();
+        viewButton.setOnAction(event -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CommunityDetails.fxml"));
+                Parent root = fxmlLoader.load();
+
+                Stage stage = new Stage();
+                stage.setTitle("Community Details");
+                stage.setScene(new Scene(root));
+                stage.show();
+
+                // Optionnel : si tu veux passer des données (nom, description...)
+                CommunityDetailsController controller = fxmlLoader.getController();
+                controller.setCommunityData("Oriental", "Dance Oriental.", 4);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void loadCategories() {
-        // Fetch categories from the database
         List<Categories> categories = categorieService.readAll();
 
         if (categories == null || categories.isEmpty()) {
@@ -46,12 +62,9 @@ public class MainController {
             return;
         }
 
-        // Dynamically populate the HBox for categories
         for (Categories category : categories) {
-            // Create a VBox for each category
             VBox categoryBox = new VBox(5);
 
-            // Create and configure the ImageView
             ImageView imageView = new ImageView();
             imageView.setFitHeight(100);
             imageView.setFitWidth(150);
@@ -64,24 +77,19 @@ public class MainController {
                 }
             } catch (Exception e) {
                 System.err.println("Error loading image for category " + category.getNom() + ": " + e.getMessage());
-                // Fallback to a default image if the URL fails
                 imageView.setImage(new Image("/images/placeholder.jpg"));
             }
 
-            // Create and configure the Label
             Label label = new Label(category.getNom());
             label.setStyle("-fx-text-fill: white;");
 
-            // Add the ImageView and Label to the VBox
             categoryBox.getChildren().addAll(imageView, label);
 
-            // Add the VBox to the HBox (slider)
             categorySlider.getChildren().add(categoryBox);
         }
     }
 
     private void loadCommunities() {
-        // Fetch communities from the database
         List<Community> communities = communityService.readAll();
 
         if (communities == null || communities.isEmpty()) {
@@ -91,12 +99,10 @@ public class MainController {
             return;
         }
 
-        // Dynamically populate the GridPane for communities
         int col = 0, row = 0;
         for (Community community : communities) {
             VBox card = new VBox(5);
 
-            // Create and configure the ImageView
             ImageView imageView = new ImageView();
             imageView.setFitHeight(100);
             imageView.setFitWidth(150);
@@ -109,31 +115,26 @@ public class MainController {
                 }
             } catch (Exception e) {
                 System.err.println("Error loading image for community " + community.getNom() + ": " + e.getMessage());
-                // Fallback to a default image if the URL fails
                 imageView.setImage(new Image("/images/placeholder.jpg"));
             }
 
-            // Create and configure the Labels
             Label nameLabel = new Label(community.getNom());
             nameLabel.setStyle("-fx-text-fill: white;");
 
-            // Assuming getId_categorie_id returns the category name or ID, adjust as needed
             Label detailsLabel = new Label(community.getId_categorie_id() + " • " + community.getNbr_membre() + " members");
             detailsLabel.setStyle("-fx-text-fill: gray;");
 
-            // Create buttons
             Button joinButton = new Button("Join");
             joinButton.setStyle("-fx-background-color: #3B82F6; -fx-text-fill: white;");
 
             Button viewButton = new Button("View");
+
             viewButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white;");
 
             HBox buttons = new HBox(5, joinButton, viewButton);
 
-            // Add components to the VBox
             card.getChildren().addAll(imageView, nameLabel, detailsLabel, buttons);
 
-            // Add the VBox to the GridPane
             communityGrid.add(card, col, row);
 
             col++;
