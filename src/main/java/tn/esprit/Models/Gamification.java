@@ -8,6 +8,7 @@ public class Gamification {
     private String type;
     private int conditionGamification;
 
+
     public Gamification(int id, int typeAbonnement, String nom, String description, String type, int conditionGamification) {
         this.id = id;
         this.typeAbonnement = typeAbonnement;
@@ -25,23 +26,53 @@ public class Gamification {
         this.conditionGamification = conditionGamification;
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getTypeAbonnement() { return typeAbonnement; }
-    public void setTypeAbonnement(int typeAbonnement) { this.typeAbonnement = typeAbonnement; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getNom() { return nom; }
-    public void setNom(String nom) { this.nom = nom; }
+    public int getTypeAbonnement() {
+        return typeAbonnement;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    public void setTypeAbonnement(int typeAbonnement) {
+        this.typeAbonnement = typeAbonnement;
+    }
 
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
+    public String getNom() {
+        return nom;
+    }
 
-    public int getConditionGamification() { return conditionGamification; }
-    public void setConditionGamification(int conditionGamification) { this.conditionGamification = conditionGamification; }
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getConditionGamification() {
+        return conditionGamification;
+    }
+
+    public void setConditionGamification(int conditionGamification) {
+        this.conditionGamification = conditionGamification;
+    }
 
     @Override
     public String toString() {

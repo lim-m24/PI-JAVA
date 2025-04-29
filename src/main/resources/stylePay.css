@@ -1,0 +1,98 @@
+/* stylePay.css */
+
+/* Base styles for the container */
+.vbox {
+    -fx-background-color: #b0b0b0; /* Clean white background */
+    -fx-border-radius: 8px; /* Slightly rounded corners */
+    -fx-padding: 25px; /* Increased padding for spaciousness */
+    -fx-spacing: 20px; /* More space between elements */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5); /* Subtle shadow for depth */
+}
+
+.text2 {
+    -fx-font-family: "Century Gothic";
+    -fx-font-size: 36px; /* Adjust the font size as needed */
+    -fx-font-weight: bold; /* Make the font bold for emphasis */
+    -fx-text-fill: #ffffffff; /* Set text color to black */
+    /* Add any additional styling as desired */
+}
+/* Title label */
+
+.pane_navBar{
+    -fx-background-color: #485B80;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #eeeeee;
+    -fx-border-style: solid;
+    -fx-font-color: white;
+}
+
+/* Grid pane for form elements */
+.grid-pane {
+    -fx-hgap: 15px; /* Increased horizontal gap */
+    -fx-vgap: 12px; /* Increased vertical gap */
+}
+
+.grid-pane > .label { /* Style labels within the grid */
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555; /* Slightly darker label text */
+}
+
+/* Text fields */
+.text-field {
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px; /* Increased padding inside text fields */
+    -fx-font-size: 14px;
+}
+
+.text-field:focused {
+    -fx-border-color: #007bff; /* Highlight on focus (primary blue) */
+    -fx-shadow-inner: null;
+}
+
+/* Expiry date and CVV HBox */
+.hbox {
+    -fx-spacing: 15px; /* Space between expiry and CVV fields */
+}
+
+.hbox > .label { /* Style label within the HBox (for CVV) */
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.hbox > .text-field { /* Style text fields within the HBox */
+    -fx-pref-width: 100px; /* Adjust width as needed */
+}
+
+.hbox > #cvcField {
+    -fx-pref-width: 80px; /* Slightly smaller width for CVV */
+}
+
+/* "Add card" button */
+.button {
+    -fx-background-color: #222831; /* Green for success/action */
+    -fx-text-fill: white;
+    -fx-font-size: 16px; /* Slightly larger button text */
+    -fx-padding: 12px 25px; /* Increased button padding */
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-pref-width: 150px; /* Slightly wider button */
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 5, 0, 0, 3); /* Subtle button shadow */
+    -fx-transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+.button:hover {
+    -fx-background-color: #218838; /* Darker green on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 8, 0, 0, 4); /* Slightly stronger shadow on hover */
+}
+
+/* Styles for displaying the amount to pay */
+.amount-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #007bff; /* Primary blue for emphasis */
+    -fx-font-weight: bold;
+    -fx-margin-top: 15px; /* Space above the amount */
+}

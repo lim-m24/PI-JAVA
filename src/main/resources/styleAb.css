@@ -1,0 +1,242 @@
+/* General styles */
+.root {
+    -fx-background-color: #f0f2f5;
+}
+
+/* FlowPane for card layout */
+.flow-pane {
+    -fx-padding: 30px;
+    -fx-hgap: 25px;
+    -fx-vgap: 25px;
+    -fx-alignment: top-left; /* Align cards to the top-left */
+}
+
+
+/* Abonnement card */
+.abonnement-card-modern {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 0, 5);
+    -fx-padding: 0; /* Padding will be inside the VBox */
+    -fx-alignment: top-center;
+    -fx-min-height: 320px; /* Increased minimum height */
+}
+
+@keyframes card-animated-gradient {
+    0% { -fx-background-position: 0% 50%; }
+    100% { -fx-background-position: 100% 50%; }
+}
+
+.abonnement-card:hover {
+    -fx-translate-y: -5px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 12, 0, 5, 10);
+}
+
+.abonnement-card-paid {
+    -fx-background-color: linear-gradient(to right, #ccffcc, #e6ffe6); /* Animated paid color */
+    -fx-background-size: 200% 100%;
+    -fx-background-repeat: repeat;
+    -fx-animation: card-animated-gradient-paid 5s linear infinite alternate;
+    -fx-border-color: #90ee90;
+}
+
+@keyframes card-animated-gradient-paid {
+    0% { -fx-background-position: 0% 50%; }
+    100% { -fx-background-position: 100% 50%; }
+}
+
+/* Labels */
+.card-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #555;
+    -fx-margin-bottom: 8px;
+}
+
+.card-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-margin-bottom: 12px;
+}
+
+.card-avantages {
+    -fx-font-style: italic;
+    -fx-text-fill: #777;
+    -fx-margin-bottom: 20px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 1.2;
+    -fx-flex-grow: 1;
+    -fx-min-height: 50px;
+}
+/* Labels */
+.card-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #555;
+    -fx-margin-bottom: 8px;
+}
+
+.card-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-margin-bottom: 12px;
+}
+
+.card-avantages {
+    -fx-font-style: italic;
+    -fx-text-fill: #777;
+    -fx-margin-bottom: 20px;
+    -fx-font-size: 14px;
+    -fx-line-spacing: 1.2;
+    -fx-flex-grow: 1;
+    -fx-min-height: 50px;
+}
+
+/* Pay button */
+.pay-button {
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 6px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-transition: background-color 0.3s ease;
+}
+
+.pay-button:hover {
+    -fx-background-color: #1976d2;
+}
+
+.pay-button:disabled {
+    -fx-opacity: 0.7;
+    -fx-cursor: default;
+    -fx-background-color: #9e9e9e;
+}
+
+/* Icon styling */
+.type-icon {
+    -fx-fit-height: 24px;
+    -fx-fit-width: 24px;
+    -fx-margin-left: 8px;
+}
+
+.title-box {
+    -fx-alignment: center-left;
+    -fx-margin-bottom: 15px;
+}
+
+
+
+/* Modern Popup Styles */
+.popup-root {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 15, 0, 0, 10);
+}
+
+.popup-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-margin-bottom: 15px;
+}
+
+.popup-details {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff;
+    -fx-line-spacing: 1.2;
+}
+
+
+/* Modern Popup Styles */
+.modern-popup-root {
+    -fx-background-color: #51618c; /* Lighter background */
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px; /* More rounded corners */
+    -fx-padding: 25px; /* Slightly increased padding */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 12, 0, 0, 10); /* Refined shadow */
+}
+
+.modern-popup-title {
+    -fx-font-size: 22px; /* Larger title */
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff; /* Darker text color */
+}
+
+.modern-popup-details {
+    -fx-font-size: 14px;
+    -fx-text-fill: #ffffff; /* Softer text color */
+    -fx-line-spacing: 1.3; /* Improved line spacing */
+}
+.gamification-item {
+    -fx-background-color: transparent;
+    -fx-padding: 8px 12px;
+    -fx-border-radius: 6px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a4a4a;
+    -fx-wrap-text: true;
+    -fx-transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+.gamification-item:hover {
+    -fx-background-color: #e0f7fa; /* Light cyan on hover */
+    -fx-cursor: hand; /* Indicate it's interactive */
+}
+.card-title-modern {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+    -fx-padding: 10px;
+    -fx-alignment: center;
+}
+
+.card-type-modern {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555;
+    -fx-padding: 0 10px 15px 10px;
+    -fx-alignment: center;
+    -fx-font-style: italic;
+}
+/* Modern Pay button */
+.pay-button-modern {
+    -fx-background-color: #e0f7fa; /* Light background */
+    -fx-text-fill: #00838f; /* Darker text */
+    -fx-font-size: 15px;
+    -fx-padding: 8px 15px;
+    -fx-border-color: #b2ebf2; /* Light border */
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-transition: background-color 0.3s ease;
+}
+
+.pay-button-modern:hover {
+    -fx-background-color: #b2ebf2;
+}
+
+.pay-button-modern:disabled {
+    -fx-opacity: 0.7;
+    -fx-cursor: default;
+    -fx-background-color: #9e9e9e;
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+}
+
+.pane_navBar{
+    -fx-background-color: #1A2A44;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #eeeeee;
+    -fx-border-style: solid;
+    -fx-font-color: white;
+}

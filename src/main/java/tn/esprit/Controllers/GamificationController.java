@@ -1,5 +1,7 @@
 package tn.esprit.Controllers;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,11 +20,11 @@ public class GamificationController {
     @FXML private ComboBox<Abonnements> abonnementCombo;
     @FXML private TextField nomField, descriptionField, typeField, conditionField;
     @FXML private Button addButton, updateButton;
-    @FXML private TableView<Gamification> tableviewGamification;
-    @FXML private TableColumn<Gamification, Integer> abonnementCol;
-    @FXML private TableColumn<Gamification, String> nomCol, descriptionCol, typeCol;
-    @FXML private TableColumn<Gamification, Integer> conditionCol;
-    @FXML private TableColumn<Gamification, Void> actionCol;
+    @FXML private TableView<GamificationWrapper> tableviewGamification; // Use GamificationWrapper here
+    @FXML private TableColumn<GamificationWrapper, String> abonnementCol; // Column now holds String (Abonnement Name)
+    @FXML private TableColumn<GamificationWrapper, String> nomCol, descriptionCol, typeCol;
+    @FXML private TableColumn<GamificationWrapper, Integer> conditionCol;
+    @FXML private TableColumn<GamificationWrapper, Void> actionCol;
 
     private final GamificationService gamificationService = new GamificationService();
     private final AbonnementService abonnementService = new AbonnementService();
@@ -31,67 +33,40 @@ public class GamificationController {
     @FXML
     public void initialize() {
         loadComboAbonnements();
-        loadGamifications();
+        loadGamificationsWithAbonnementName();
 
-        abonnementCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getTypeAbonnement()).asObject());
-        nomCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getNom()));
-        descriptionCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getDescription()));
-        typeCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleStringProperty(cellData.getValue().getType()));
-        conditionCol.setCellValueFactory(cellData -> new javafx.beans.property.SimpleIntegerProperty(cellData.getValue().getConditionGamification()).asObject());
+        abonnementCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAbonnementName()));
+        nomCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGamification().getNom()));
+        descriptionCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGamification().getDescription()));
+        typeCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGamification().getType()));
+        conditionCol.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getGamification().getConditionGamification()).asObject());
 
         tableviewGamification.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
-                selectedGamification = newSelection;
-                setFieldsFromSelection(newSelection);
+                selectedGamification = newSelection.getGamification();
+                setFieldsFromSelection(selectedGamification);
                 updateButton.setDisable(false);
             }
         });
         addActionButtonsToTable();
     }
-    private void addActionButtonsToTable() {
-        actionCol.setCellFactory(param -> new TableCell<>() {
-            private final Button deleteButton = new Button("Delete");
-            private final Button updateButton = new Button("Update");
-            private final HBox hBox = new HBox(10, updateButton, deleteButton);
 
-            {
-                hBox.setPadding(new Insets(5));
-                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
-                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
-
-                deleteButton.setOnAction(event -> {
-                    Gamification selectedGamification = getTableView().getItems().get(getIndex());
-                    System.out.println("Delete clicked for: " + selectedGamification.getNom());
-                    gamificationService.DeleteByID(selectedGamification.getId());
-                    initialize();
-                });
-
-                updateButton.setOnAction(event -> {
-                    Gamification selectedGamification = getTableView().getItems().get(getIndex());
-                    System.out.println("Update clicked for: " + selectedGamification.getNom());
-                    handleUpdate(selectedGamification);
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(hBox);
-                }
-            }
-        });
-    }
     private void loadComboAbonnements() {
         List<Abonnements> abonnements = abonnementService.readAll();
         abonnementCombo.setItems(FXCollections.observableArrayList(abonnements));
     }
 
-    private void loadGamifications() {
-        ObservableList<Gamification> list = FXCollections.observableArrayList(gamificationService.readAll());
-        tableviewGamification.setItems(list);
+    private void loadGamificationsWithAbonnementName() {
+        List<Gamification> gamifications = gamificationService.readAll();
+        ObservableList<GamificationWrapper> wrapperList = FXCollections.observableArrayList();
+        for (Gamification g : gamifications) {
+            Abonnements abonnement = abonnementService.readAll().stream()
+                    .filter(a -> a.getId() == g.getTypeAbonnement())
+                    .findFirst()
+                    .orElse(null);
+            wrapperList.add(new GamificationWrapper(g, abonnement != null ? abonnement.getNom() : "N/A"));
+        }
+        tableviewGamification.setItems(wrapperList); // Now setting the correct type
     }
 
     private void setFieldsFromSelection(Gamification g) {
@@ -126,7 +101,7 @@ public class GamificationController {
         );
 
         gamificationService.Add(g);
-        loadGamifications();
+        loadGamificationsWithAbonnementName(); // Reload data to update the table
         clearFields();
     }
 
@@ -156,7 +131,7 @@ public class GamificationController {
         selectedGamification.setConditionGamification(Integer.parseInt(conditionField.getText()));
 
         gamificationService.Update(selectedGamification);
-        loadGamifications();
+        loadGamificationsWithAbonnementName(); // Reload data to update the table
         clearFields();
     }
 
@@ -237,5 +212,59 @@ public class GamificationController {
         alert.showAndWait();
     }
 
+    // Helper class to wrap Gamification and Abonnement Name
+    public static class GamificationWrapper {
+        private final Gamification gamification;
+        private final String abonnementName;
 
+        public GamificationWrapper(Gamification gamification, String abonnementName) {
+            this.gamification = gamification;
+            this.abonnementName = abonnementName;
+        }
+
+        public Gamification getGamification() {
+            return gamification;
+        }
+
+        public String getAbonnementName() {
+            return abonnementName;
+        }
+    }
+
+    private void addActionButtonsToTable() {
+        actionCol.setCellFactory(param -> new TableCell<GamificationWrapper, Void>() { // Use GamificationWrapper here
+            private final Button deleteButton = new Button("Delete");
+            private final Button updateButton = new Button("Update");
+            private final HBox hBox = new HBox(10, updateButton, deleteButton);
+
+            {
+                hBox.setPadding(new Insets(5));
+                deleteButton.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
+                updateButton.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 2 10 2 10; -fx-font-size: 12px;");
+
+                deleteButton.setOnAction(event -> {
+                    GamificationWrapper selectedWrapper = getTableView().getItems().get(getIndex());
+                    Gamification selectedGamification = selectedWrapper.getGamification();
+                    System.out.println("Delete clicked for: " + selectedGamification.getNom());
+                    gamificationService.DeleteByID(selectedGamification.getId());
+                    loadGamificationsWithAbonnementName();
+                });
+
+                updateButton.setOnAction(event -> {
+                    GamificationWrapper selectedWrapper = getTableView().getItems().get(getIndex());
+                    handleUpdate(selectedWrapper.getGamification());
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(hBox);
+                }
+            }
+        });
+    }
 }

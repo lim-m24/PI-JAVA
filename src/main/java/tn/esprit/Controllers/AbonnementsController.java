@@ -12,7 +12,13 @@ import tn.esprit.Models.Abonnements;
 import tn.esprit.Models.Categories;
 import tn.esprit.Services.AbonnementService;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Properties;
 
 public class AbonnementsController {
 
@@ -21,6 +27,9 @@ public class AbonnementsController {
 
     @FXML
     private Button addButton;
+    @FXML
+    private TextField dureeField;
+
 
     @FXML
     private TableColumn<Abonnements, String> avantagesCol;
@@ -54,6 +63,7 @@ public class AbonnementsController {
 
     private final AbonnementService AbonnementService = new AbonnementService();
     private Abonnements selectedAbonnement;
+
     private static final double ROW_HEIGHT = 50.0;
 
     @FXML
@@ -143,9 +153,48 @@ public class AbonnementsController {
         AbonnementService.Add(newAbonnement);
         System.out.println("Abonnement added: " + newAbonnement.getNom());
 
+        // Get the newly added ID (assuming it's the last one in the list)
+        int id = AbonnementService.readAll()
+                .stream()
+                .mapToInt(Abonnements::getId)
+                .max()
+                .orElse(-1); // fallback
+
+        try {
+            int days = Integer.parseInt(dureeField.getText());
+            LocalDate expiryDate = LocalDate.now().plusDays(days);
+            saveExpiryDate(id, expiryDate);
+        } catch (NumberFormatException e) {
+            showAlert("Durée must be a valid number.");
+        }
+
         initialize();
         clearForm();
     }
+    private void saveExpiryDate(int id, LocalDate expiryDate) {
+        try {
+            File file = new File("src/abonnement_expiries.properties");
+            Properties props = new Properties();
+
+            // Load existing if exists
+            if (file.exists()) {
+                try (FileInputStream in = new FileInputStream(file)) {
+                    props.load(in);
+                }
+            }
+
+            props.setProperty(String.valueOf(id), expiryDate.toString());
+
+            try (FileOutputStream out = new FileOutputStream(file)) {
+                props.store(out, "Abonnement Expiry Dates");
+            }
+
+            System.out.println("Expiry saved: " + id + "=" + expiryDate);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     @FXML
