@@ -106,19 +106,12 @@ public class AdminController {
     private void loadHomepage(ActionEvent event) {
         try {
             // Load the communityFront.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/communityFront.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeFront.fxml"));
             Parent communityRoot = loader.load();
-
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-
             Scene scene = new Scene(communityRoot);
             scene.getStylesheets().add(getClass().getResource("/style2.css").toExternalForm());
-
             stage.setScene(scene);
-
-            stage.setWidth(-1);
-            stage.setHeight(-1);
-
             stage.setMaximized(true);
 
             stage.show();
