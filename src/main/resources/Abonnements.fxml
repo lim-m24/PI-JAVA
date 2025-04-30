@@ -1,51 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AbonnementsController">
-    <HBox spacing="20">
+<AnchorPane prefHeight="785.0" prefWidth="1294.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AbonnementsController">
+    <HBox layoutX="12.0" prefHeight="766.0" prefWidth="1278.0" spacing="20">
 
         <!-- Left: Table View -->
-        <VBox spacing="10" alignment="TOP_CENTER" styleClass="card-style">
+        <VBox alignment="TOP_CENTER" prefHeight="687.0" prefWidth="1053.0" spacing="10" styleClass="card-style">
             <Label text="Abonnements" textAlignment="CENTER">
                 <font>
-                    <Font name="System Bold" size="25.0" />
+                    <Font name="Century Gothic Bold" size="60.0" />
                 </font>
             </Label>
-            <TableView fx:id="tableviewAbonnement" prefWidth="800" prefHeight="700" VBox.vgrow="ALWAYS">
+         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+            <TableView fx:id="tableviewAbonnement" prefHeight="620.0" prefWidth="800" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="nomCol" prefWidth="75.0" text="Nom" />
                     <TableColumn fx:id="prixCol" prefWidth="75.0" text="Prix" />
                     <TableColumn fx:id="avantagesCol" prefWidth="150.0" text="Avantages" />
                     <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
-                    <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
+                    <TableColumn fx:id="actionCol" prefWidth="150.0" text="Actions" />
                 </columns>
             </TableView>
         </VBox>
 
         <!-- Right: Add Form -->
-        <VBox fx:id="formContainer" spacing="10" alignment="TOP_CENTER" styleClass="card-style" HBox.hgrow="ALWAYS">
-            <Label styleClass="title-label" text="Add Abonnement">
+        <VBox fx:id="formContainer" alignment="TOP_CENTER" prefHeight="687.0" prefWidth="210.0" spacing="10" styleClass="card-style" HBox.hgrow="ALWAYS">
+            <Label prefHeight="34.0" prefWidth="194.0" styleClass="title-label" text="Add Abonnement">
                 <font>
-                    <Font name="System Bold" size="18.0"/>
+                    <Font name="Century Gothic Bold" size="20.0" />
                 </font>
             </Label>
+         <ImageView fitHeight="147.0" fitWidth="187.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/Lovepik_com-450156572-Subscription%20Model.png" />
+            </image>
+         </ImageView>
 
             <TextField fx:id="nomField" promptText="Nom" />
             <TextField fx:id="prixField" promptText="Prix" />
             <TextField fx:id="avantagesField" promptText="Avantages" />
             <TextField fx:id="typeField" promptText="Type" />
+            <TextField fx:id="dureeField" promptText="Durée (jours)" />
 
-            <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Update" onAction="#handleUpdateAction" disable="true" />
-            <Button fx:id="addButton" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Add New Abonnement" onAction="#handleAdd" />
+
+
+            <Button fx:id="updateButton" disable="true" onAction="#handleUpdateAction" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Update" />
+            <Button fx:id="addButton" onAction="#handleAdd" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Add New Abonnement" />
         </VBox>
 
     </HBox>

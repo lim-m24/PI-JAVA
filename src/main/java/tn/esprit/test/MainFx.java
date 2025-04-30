@@ -17,7 +17,7 @@ public class MainFx extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/Admin.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/admin.fxml"));
         try {
             Parent root = loader.load();
             Scene scene =new Scene(root);
@@ -28,6 +28,7 @@ public class MainFx extends Application {
             primaryStage.show();
         } catch (IOException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace();//zedt hedhi aala l errors
         }
 
     }

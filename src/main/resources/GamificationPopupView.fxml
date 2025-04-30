@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="288.0" prefWidth="450.0" styleClass="modern-popup-root" stylesheets="@styleAb.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.GamificationPopupController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <VBox.margin>
+                <Insets bottom="15.0" />
+            </VBox.margin>
+            <children>
+                <ImageView fitHeight="104.0" fitWidth="94.0" preserveRatio="true">
+                    <image>
+                        <Image url="@images/3d-minimal-gift-box-award-event-rewards-bonus-gift-box-gift-box-with-a-pile-of-money-3d-illustration-png.png" />
+                    </image>
+                </ImageView>
+                <Label fx:id="titleLabel" text="Gamification Details" textFill="WHITE">
+                    <font>
+                        <Font name="Century Gothic Bold" size="30.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <VBox fx:id="gamificationList" spacing="8.0">
+        </VBox>
+        <Label fx:id="noGamificationLabel" styleClass="modern-popup-details" text="No gamification rules found for this abonnement." visible="false" wrapText="true" />
+    </children>
+</VBox>
