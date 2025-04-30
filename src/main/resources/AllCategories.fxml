@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="844.0" prefWidth="1034.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="tn.esprit.Controllers.CategoriesReadAllController">
-    <HBox prefHeight="830.0" prefWidth="1020.0" spacing="20">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="tn.esprit.Controllers.CategoriesReadAllController">
+    <HBox spacing="20">
 
         <!-- Left: Table View -->
         <VBox alignment="TOP_CENTER" spacing="10" styleClass="card-style" VBox.vgrow="ALWAYS">
             <Label text="Categories" textAlignment="CENTER">
                 <font>
-                    <Font name="System Bold" size="89.0" />
+                    <Font name="System Bold" size="30.0" />
                 </font>
             </Label>
          <ImageView fitHeight="168.0" fitWidth="156.0" pickOnBounds="true" preserveRatio="true">
@@ -27,7 +27,7 @@
                <Image url="@images/202477.png" />
             </image>
          </ImageView>
-            <TableView fx:id="tableviewCategories" prefHeight="700" prefWidth="800" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tableviewCategories" prefHeight="800" prefWidth="900" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="nomCol" prefWidth="100.0" text="Nom" />
                     <TableColumn fx:id="descriptionCol" prefWidth="250.0" text="Description" />

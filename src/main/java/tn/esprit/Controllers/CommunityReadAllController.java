@@ -77,6 +77,7 @@ public class CommunityReadAllController {
 
         nomCol.setCellValueFactory(new PropertyValueFactory<>("nom"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        coverCol.setCellValueFactory(new PropertyValueFactory<>("cover"));
         coverCol.setCellFactory(column -> new TableCell<>() {
             private final ImageView imageView = new ImageView();
 
@@ -87,17 +88,18 @@ public class CommunityReadAllController {
             }
 
             @Override
-            protected void updateItem(String imageUrl, boolean empty) {
-                super.updateItem(imageUrl, empty);
+            protected void updateItem(String fileName, boolean empty) {
+                super.updateItem(fileName, empty);
 
-                if (empty || imageUrl == null || imageUrl.trim().isEmpty()) {
+                if (empty || fileName == null || fileName.trim().isEmpty()) {
                     setGraphic(null);
                 } else {
-                    try {
-                        Image image = new Image(imageUrl, 50, 50, true, true, true);
+                    File file = new File("." + fileName); // Remove prepended "uploads/"
+                    if (file.exists()) {
+                        Image image = new Image(file.toURI().toString(), 50, 50, true, true);
                         imageView.setImage(image);
                         setGraphic(imageView);
-                    } catch (Exception e) {
+                    } else {
                         setGraphic(null);
                     }
                 }
@@ -114,6 +116,14 @@ public class CommunityReadAllController {
         loadCategories();
 
         addActionButtonsToTable();
+        tableviewCommunity.setFixedCellSize(ROW_HEIGHT);
+        tableviewCommunity.prefHeightProperty().bind(
+                tableviewCommunity.fixedCellSizeProperty().multiply(
+                        FXCollections.observableList(communities).size() + 1.01
+                )
+        );
+        tableviewCommunity.minHeightProperty().bind(tableviewCommunity.prefHeightProperty());
+        tableviewCommunity.maxHeightProperty().bind(tableviewCommunity.prefHeightProperty());
     }
 
     private void loadCategories() {
@@ -222,9 +232,9 @@ public class CommunityReadAllController {
 
         Community newCommunity = new Community(
                 selectedCategory.getId(),
-                nomField.getText(),
-                descriptionField.getText(),
-                coverField.getText(),
+                nomField.getText().trim(),
+                descriptionField.getText().trim(),
+                coverField.getText().trim(),
                 currentDateTime,
                 Integer.parseInt(nbrMembreField.getText()),
                 (byte) 1
@@ -296,6 +306,13 @@ public class CommunityReadAllController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    private void showAlert2(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
     @FXML
     private void handleUploadImage() {
         FileChooser fileChooser = new FileChooser();
@@ -303,11 +320,36 @@ public class CommunityReadAllController {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-        File file = fileChooser.showOpenDialog(null);
+        File selectedFile = fileChooser.showOpenDialog(null);
 
-        if (file != null) {
-            String imageUrl = file.toURI().toString();
-            coverField.setText(imageUrl);
+        if (selectedFile != null) {
+            try {
+                // Ensure uploads directory exists
+                File uploadsDir = new File("uploads");
+                if (!uploadsDir.exists()) {
+                    uploadsDir.mkdir();
+                }
+
+                // Create unique filename to avoid conflict
+                String extension = selectedFile.getName().substring(selectedFile.getName().lastIndexOf("."));
+                String uniqueName = selectedFile.getName().replace(extension, "") + "-" + java.util.UUID.randomUUID() + extension;
+                File destFile = new File(uploadsDir, uniqueName);
+
+                // Copy file to uploads/
+                java.nio.file.Files.copy(
+                        selectedFile.toPath(),
+                        destFile.toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                );
+
+                // Set the field with full /uploads/ path (as required in DB)
+                coverField.setText("/uploads/" + uniqueName);
+                showAlert2(Alert.AlertType.INFORMATION, "Success", "Image uploaded and path set.");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert2(Alert.AlertType.ERROR, "Error", "Failed to upload image: " + e.getMessage());
+            }
         }
     }
 

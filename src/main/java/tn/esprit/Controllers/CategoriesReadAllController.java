@@ -72,17 +72,18 @@ public class CategoriesReadAllController {
             }
 
             @Override
-            protected void updateItem(String imageUrl, boolean empty) {
-                super.updateItem(imageUrl, empty);
+            protected void updateItem(String fileName, boolean empty) {
+                super.updateItem(fileName, empty);
 
-                if (empty || imageUrl == null || imageUrl.trim().isEmpty()) {
+                if (empty || fileName == null || fileName.trim().isEmpty()) {
                     setGraphic(null);
                 } else {
-                    try {
-                        Image image = new Image(imageUrl, 50, 50, true, true, true);
+                    File file = new File("." + fileName); // Remove prepended "uploads/"
+                    if (file.exists()) {
+                        Image image = new Image(file.toURI().toString(), 50, 50, true, true);
                         imageView.setImage(image);
                         setGraphic(imageView);
-                    } catch (Exception e) {
+                    } else {
                         setGraphic(null);
                     }
                 }
@@ -229,13 +230,38 @@ public class CategoriesReadAllController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Cover Image");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.webp")
         );
-        File file = fileChooser.showOpenDialog(null);
+        File selectedFile = fileChooser.showOpenDialog(null);
 
-        if (file != null) {
-            String imageUrl = file.toURI().toString();
-            coverField.setText(imageUrl);
+        if (selectedFile != null) {
+            try {
+                // Ensure uploads directory exists
+                File uploadsDir = new File("uploads");
+                if (!uploadsDir.exists()) {
+                    uploadsDir.mkdir();
+                }
+
+                // Create unique filename to avoid conflict
+                String extension = selectedFile.getName().substring(selectedFile.getName().lastIndexOf("."));
+                String uniqueName = selectedFile.getName().replace(extension, "") + "-" + java.util.UUID.randomUUID() + extension;
+                File destFile = new File(uploadsDir, uniqueName);
+
+                // Copy file to uploads/
+                java.nio.file.Files.copy(
+                        selectedFile.toPath(),
+                        destFile.toPath(),
+                        java.nio.file.StandardCopyOption.REPLACE_EXISTING
+                );
+
+                // Set the field with full /uploads/ path (as required in DB)
+                coverField.setText("/uploads/" + uniqueName);
+                showAlert(Alert.AlertType.INFORMATION, "Success", "Image uploaded and path set.");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to upload image: " + e.getMessage());
+            }
         }
     }
 

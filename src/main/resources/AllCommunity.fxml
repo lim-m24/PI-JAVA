@@ -15,13 +15,13 @@
     <HBox spacing="20">
 
         <!-- Left: Table View -->
-        <VBox spacing="10" alignment="TOP_CENTER" styleClass="card-style">
+        <VBox spacing="10" alignment="TOP_CENTER" styleClass="card-style" VBox.vgrow="ALWAYS">
             <Label text="Communities" textAlignment="CENTER">
                 <font>
-                    <Font name="System Bold" size="25.0" />
+                    <Font name="System Bold" size="30.0" />
                 </font>
             </Label>
-            <TableView fx:id="tableviewCommunity" prefWidth="800" prefHeight="700" VBox.vgrow="ALWAYS">
+            <TableView fx:id="tableviewCommunity" prefWidth="800" prefHeight="900" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="nomCol" prefWidth="75.0" text="Nom" />
                     <TableColumn fx:id="descriptionCol" prefWidth="75.0" text="Description" />
@@ -53,7 +53,7 @@
             <ComboBox fx:id="categoryComboBox" promptText="Select Category"/>
 
             <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Update" onAction="#handleUpdateAction" disable="true" />
-            <Button fx:id="addButton" text="Add New Community" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" onAction="#handleAdd" />
+            <Button fx:id="addButton" styleClass="add-btn" text="Add New Community" onAction="#handleAdd" />
         </VBox>
 
     </HBox>
