@@ -32,7 +32,7 @@ public class ComunityFrontController {
     @FXML
     private ScrollPane categoryScrollPane;
 
-    private BorderPane FrontBorderpane; // No @FXML since it's not in comunity_front.fxml
+    private BorderPane FrontBorderpane;
 
     @FXML
     private Button popularButton;
@@ -40,7 +40,6 @@ public class ComunityFrontController {
     private final CommunityService communityService = new CommunityService();
     private final CategorieService categorieService = new CategorieService();
 
-    // Setter to inject the BorderPane from HomeFrontController
     public void setFrontBorderpane(BorderPane frontBorderpane) {
         this.FrontBorderpane = frontBorderpane;
     }
@@ -101,8 +100,28 @@ public class ComunityFrontController {
             Label label = new Label(category.getNom());
             label.setStyle("-fx-text-fill: white;");
             categoryBox.getChildren().addAll(imageView, label);
-            categorySlider.getChildren().add(categoryBox);
 
+            // Make the category clickable
+            categoryBox.setOnMouseClicked(event -> {
+                if (FrontBorderpane == null) {
+                    System.err.println("FrontBorderpane is not set in ComunityFrontController.");
+                    return;
+                }
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/CategoryCommunities.fxml"));
+                    AnchorPane categoryCommunitiesPane = loader.load();
+
+                    CategoryCommunitiesController controller = loader.getController();
+                    controller.setCategory(category);
+                    controller.setFrontBorderpane(FrontBorderpane);
+
+                    FrontBorderpane.setCenter(categoryCommunitiesPane);
+                } catch (IOException e) {
+                    System.err.println("Error loading CategoryCommunities.fxml: " + e.getMessage());
+                }
+            });
+
+            categorySlider.getChildren().add(categoryBox);
             totalWidth += 150;
         }
 
@@ -155,21 +174,19 @@ public class ComunityFrontController {
             Button viewButton = new Button("View");
             viewButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white;");
 
-            // Add action to the View button
             viewButton.setOnAction(event -> {
                 if (FrontBorderpane == null) {
-                    System.err.println("FrontBorderpane is not set. Ensure it is passed from HomeFrontController.");
+                    System.err.println("FrontBorderpane is not set in ComunityFrontController.");
                     return;
                 }
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommunityDetails.fxml"));
-                    AnchorPane communityDetailsPane = loader.load();
+                    BorderPane communityDetailsPane = loader.load();
 
-                    // Get the controller and pass the community data
                     CommunityDetailsController controller = loader.getController();
                     controller.setCommunity(community);
+                    controller.setFrontBorderpane(FrontBorderpane);
 
-                    // Set the loaded pane in the center of the BorderPane
                     FrontBorderpane.setCenter(communityDetailsPane);
                 } catch (IOException e) {
                     System.err.println("Error loading CommunityDetails.fxml: " + e.getMessage());

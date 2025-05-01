@@ -26,7 +26,7 @@ public class MainController {
     private GridPane communityGrid;
 
     @FXML
-    private BorderPane FrontBorderpane; // Reference to the root BorderPane
+    private BorderPane FrontBorderpane;
 
     private final CommunityService communityService = new CommunityService();
     private final CategorieService categorieService = new CategorieService();
@@ -43,16 +43,10 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAbonnementsView.fxml"));
             AnchorPane userAbonnementsPane = loader.load();
-            // Set the loaded pane in the center of the BorderPane
             FrontBorderpane.setCenter(userAbonnementsPane);
-
-            // You might want to get the controller of the loaded view to pass data
-            // UserAbonnementsController controller = loader.getController();
-            // controller.setData(someData);
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception appropriately (e.g., show an error message)
         }
     }
     public void loadCategoriesView() {
@@ -65,7 +59,6 @@ public class MainController {
 
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception appropriately (e.g., show an error message)
         }
     }
 }

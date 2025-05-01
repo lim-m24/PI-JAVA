@@ -88,3 +88,19 @@
 .table-view .table-row-cell:focused:selected {
     -fx-background-color: #e0f3ff;
 }
+.context-menu {
+    -fx-background-color: #2C3E50;
+}
+
+.menu-item .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.menu-item {
+    -fx-background-color: #2C3E50;
+}
+
+.menu-item:focused {
+    -fx-background-color: #3B82F6;
+    -fx-text-fill: #FFFFFF;
+}
