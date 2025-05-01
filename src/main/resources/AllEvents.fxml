@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.EventReadAllController">
+        <!-- Left: Table View -->
+    <center>
+        <VBox spacing="10" alignment="TOP_CENTER" styleClass="card-style" VBox.vgrow="ALWAYS">
+            <Label text="Events" textAlignment="CENTER">
+                <font>
+                    <Font name="System Bold" size="30.0" />
+                </font>
+            </Label>
+            <TableView fx:id="tableviewEvent" prefWidth="800" prefHeight="900" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="nomCol" prefWidth="100.0" text="Nom" />
+                    <TableColumn fx:id="descriptionCol" prefWidth="150.0" text="Description" />
+                    <TableColumn fx:id="startedAtCol" prefWidth="120.0" text="Start Date" />
+                    <TableColumn fx:id="finishAtCol" prefWidth="120.0" text="Finish Date" />
+                    <TableColumn fx:id="lieuCol" prefWidth="100.0" text="Lieu" />
+                    <TableColumn fx:id="typeCol" prefWidth="100.0" text="Type" />
+                    <TableColumn fx:id="coverCol" prefWidth="100.0" text="Cover" />
+                    <TableColumn fx:id="linkCol" prefWidth="100.0" text="Link" />
+                    <TableColumn fx:id="accesCol" prefWidth="100.0" text="Acces" />
+                    <TableColumn fx:id="communityIdCol" prefWidth="80.0" text="Community" />
+                    <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+    <right>
+        <!-- Right: Add Form -->
+        <VBox fx:id="formContainer" spacing="10" alignment="TOP_CENTER" styleClass="card-style" HBox.hgrow="ALWAYS">
+            <Label styleClass="title-label" text="Add Event">
+                <font>
+                    <Font name="System Bold" size="18.0"/>
+                </font>
+            </Label>
+
+            <TextField fx:id="nomField" promptText="Nom" />
+            <TextField fx:id="descriptionField" promptText="Description" />
+            <TextField fx:id="startedAtField" promptText="Start Date (yyyy-MM-dd HH:mm)" />
+            <TextField fx:id="finishAtField" promptText="Finish Date (yyyy-MM-dd HH:mm)" />
+            <TextField fx:id="lieuField" promptText="Lieu" />
+            <TextField fx:id="typeField" promptText="Type" />
+            <Button style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Upload Cover" onAction="#handleUploadImage" />
+            <TextField fx:id="coverField" promptText="Cover" editable="false" />
+            <TextField fx:id="linkField" promptText="Link" />
+            <TextField fx:id="accesField" promptText="Acces" />
+
+            <ComboBox fx:id="communityComboBox" promptText="Select Community" />
+
+            <Button fx:id="updateButton" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Update" onAction="#handleUpdateAction" disable="true" />
+            <Button fx:id="addButton" styleClass="add-btn" text="Add New Event" onAction="#handleAdd" />
+        </VBox>
+    </right>
+</BorderPane>

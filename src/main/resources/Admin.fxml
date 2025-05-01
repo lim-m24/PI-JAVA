@@ -24,6 +24,7 @@
          <VBox fx:id="communitiesSubmenu" spacing="5" visible="false" managed="false" style="-fx-padding: 0 0 0 15;">
             <Button  fx:id="CategoriesBTN" text="Categories" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllCategories"/>
             <Button  fx:id="CommunityBTN" text="Communities" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllCommunity"/>
+            <Button  fx:id="EventBTN" text="Events" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllEvents"/>
          </VBox>
 
          <Button fx:id="btnAbonnements" text="Abonnements" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAbonnements"/>

@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="tn.esprit.Controllers.CategoriesReadAllController">
-    <HBox spacing="20">
-
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="tn.esprit.Controllers.CategoriesReadAllController">
+    <center>
         <!-- Left: Table View -->
         <VBox alignment="TOP_CENTER" spacing="10" styleClass="card-style" VBox.vgrow="ALWAYS">
             <Label text="Categories" textAlignment="CENTER">
@@ -37,7 +37,8 @@
                 </columns>
             </TableView>
         </VBox>
-
+    </center>
+    <right>
         <!-- Right: Add Form -->
         <VBox fx:id="formContainer" alignment="TOP_CENTER" prefHeight="1002.0" prefWidth="198.0" spacing="10" styleClass="card-style" VBox.vgrow="ALWAYS">
             <Label styleClass="title-label" text="Add Categorie">
@@ -59,6 +60,5 @@
             <Button fx:id="updateButton" disable="true" onAction="#handleUpdateAction" style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" styleClass="upload-btn" text="Update" />
             <Button fx:id="addButton" onAction="#handleAdd" styleClass="add-btn" text="Ajouter" />
         </VBox>
-
-    </HBox>
-</AnchorPane>
+    </right>
+</BorderPane>

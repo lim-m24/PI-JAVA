@@ -13,10 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import tn.esprit.Models.Community;
-import tn.esprit.Models.Events;
 import tn.esprit.Services.CommunityService;
-import tn.esprit.Services.EventService;
-import tn.esprit.Services.EventUserService;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
@@ -31,7 +28,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -77,7 +73,6 @@ public class CommunityDetailsController {
     private Community community;
     private final CommunityService communityService = new CommunityService();
     private final EventService eventService = new EventService();
-    private final EventUserService eventUserService = new EventUserService();
     private BorderPane FrontBorderpane;
 
     public void setFrontBorderpane(BorderPane frontBorderpane) {
@@ -113,18 +108,13 @@ public class CommunityDetailsController {
                 .filter(event -> event.getId_community_id() == community.getId())
                 .collect(Collectors.toList());
 
-        // Get event statistics
-        Map<Integer, int[]> eventStats = eventUserService.getEventStats();
-
         eventsGrid.getChildren().clear(); // Clear existing events
         for (Events event : events) {
             String dateRange = event.getStarted_at().toLocalDate().toString() + " " +
                     event.getStarted_at().toLocalTime().toString() + " - " +
                     event.getFinish_at().toLocalDate().toString() + " " +
                     event.getFinish_at().toLocalTime().toString();
-            int[] stats = eventStats.getOrDefault(event.getId(), new int[]{0, 0});
-            String statsString = stats[0] + " Participated • " + stats[1] + " Interested";
-            addEvent(event.getNom(), dateRange, statsString);
+            addEvent(event.getNom(), dateRange, "0 Interested • 0 Participated"); // Placeholder stats
         }
     }
 
@@ -202,7 +192,7 @@ public class CommunityDetailsController {
                 }
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommunityDetails.fxml"));
-                    BorderPane communityDetailsPane = loader.load();
+                    AnchorPane communityDetailsPane = loader.load();
 
                     CommunityDetailsController controller = loader.getController();
                     controller.setCommunity(suggested);

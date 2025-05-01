@@ -41,6 +41,8 @@ public class AdminController {
     @FXML
     private Button CommunityBTN;
     @FXML
+    private Button EventBTN;
+    @FXML
     private Text welcomeText;
 
     @FXML
@@ -77,6 +79,16 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllCommunity.fxml"));
             Node communityView = loader.load();
             mainBorderPane.setCenter(communityView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void loadAllEvents() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllEvents.fxml"));
+            Node eventView = loader.load();
+            mainBorderPane.setCenter(eventView);
         } catch (IOException e) {
             e.printStackTrace();
         }
