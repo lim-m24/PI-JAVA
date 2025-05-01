@@ -17,7 +17,7 @@
         <HBox alignment="CENTER_LEFT" spacing="10">
             <Label text="Community" style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;" />
             <Button text="Suggestions" style="-fx-text-fill: white;" />
-            <Button text="Popular" style="-fx-text-fill: white;" />
+            <Button fx:id="popularButton" text="Popular" style="-fx-text-fill: white;" />
             <Button text="My Community" style="-fx-text-fill: white;" />
             <Button text="+ Create Community" style="-fx-background-color: #3B82F6; -fx-text-fill: white;" />
         </HBox>

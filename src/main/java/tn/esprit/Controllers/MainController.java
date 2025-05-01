@@ -58,8 +58,10 @@ public class MainController {
     public void loadCategoriesView() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/communityFront.fxml"));
-            AnchorPane userAbonnementsPane = loader.load();
-            FrontBorderpane.setCenter(userAbonnementsPane);
+            AnchorPane comunityfrontpane = loader.load();
+            ComunityFrontController controller = loader.getController();
+            controller.setFrontBorderpane(FrontBorderpane);
+            FrontBorderpane.setCenter(comunityfrontpane);
 
         } catch (IOException e) {
             e.printStackTrace();

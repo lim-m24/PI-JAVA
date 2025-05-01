@@ -2,6 +2,7 @@ package tn.esprit.Controllers;
 
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,7 +18,9 @@ import tn.esprit.Services.CommunityService;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ComunityFrontController {
     @FXML
@@ -29,32 +32,35 @@ public class ComunityFrontController {
     @FXML
     private ScrollPane categoryScrollPane;
 
+    private BorderPane FrontBorderpane; // No @FXML since it's not in comunity_front.fxml
+
     @FXML
-    private BorderPane FrontBorderpane; // Reference to the root BorderPane
+    private Button popularButton;
 
     private final CommunityService communityService = new CommunityService();
     private final CategorieService categorieService = new CategorieService();
 
-    @FXML
-    private Button viewButton;
+    // Setter to inject the BorderPane from HomeFrontController
+    public void setFrontBorderpane(BorderPane frontBorderpane) {
+        this.FrontBorderpane = frontBorderpane;
+    }
 
     @FXML
     public void initialize() {
         loadCategories();
-        loadCommunities();
+        loadCommunities(false);
 
-        // Disable vertical scrolling
         categoryScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        // Enable horizontal scrolling and adjust cursor for dragging
         categoryScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         categoryScrollPane.setCursor(Cursor.HAND);
         categoryScrollPane.setPannable(true);
         categoryScrollPane.setOnMousePressed(e -> categoryScrollPane.setCursor(Cursor.CLOSED_HAND));
         categoryScrollPane.setOnMouseReleased(e -> categoryScrollPane.setCursor(Cursor.HAND));
+
+        popularButton.setOnAction(event -> loadCommunities(true));
     }
 
     private void loadCategories() {
-        // Ensure the ScrollPane and categorySlider behave properly
         categorySlider.setPrefWidth(Region.USE_COMPUTED_SIZE);
         categorySlider.setMinWidth(Region.USE_PREF_SIZE);
 
@@ -72,7 +78,6 @@ public class ComunityFrontController {
             VBox categoryBox = new VBox(5);
             categoryBox.setStyle("-fx-background-color: #2C3E50; -fx-padding: 10; -fx-alignment: center;");
 
-            // Create a fade transition
             FadeTransition fade = new FadeTransition(Duration.millis(400), categoryBox);
             fade.setFromValue(0);
             fade.setToValue(1);
@@ -80,7 +85,7 @@ public class ComunityFrontController {
 
             ImageView imageView = new ImageView();
             imageView.setFitHeight(100);
-            imageView.setFitWidth(150);  // Adjusted width for wider categories
+            imageView.setFitWidth(150);
             String relativePath = category.getCover();
 
             if (relativePath != null && !relativePath.isEmpty()) {
@@ -98,14 +103,15 @@ public class ComunityFrontController {
             categoryBox.getChildren().addAll(imageView, label);
             categorySlider.getChildren().add(categoryBox);
 
-            totalWidth += 150; // Adjusted width for wider categories (170 + padding)
+            totalWidth += 150;
         }
 
-        // Set the total width to the HBox to enable the scroll
         categorySlider.setPrefWidth(totalWidth);
     }
 
-    private void loadCommunities() {
+    private void loadCommunities(boolean sortByPopularity) {
+        communityGrid.getChildren().clear();
+
         List<Community> communities = communityService.readAll();
 
         if (communities == null || communities.isEmpty()) {
@@ -113,6 +119,12 @@ public class ComunityFrontController {
             noCommunitiesLabel.setStyle("-fx-text-fill: gray;");
             communityGrid.add(noCommunitiesLabel, 0, 0);
             return;
+        }
+
+        if (sortByPopularity) {
+            communities = communities.stream()
+                    .sorted(Comparator.comparingInt(Community::getNbr_membre).reversed())
+                    .collect(Collectors.toList());
         }
 
         int col = 0, row = 0;
@@ -142,6 +154,27 @@ public class ComunityFrontController {
             joinButton.setStyle("-fx-background-color: #3B82F6; -fx-text-fill: white;");
             Button viewButton = new Button("View");
             viewButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white;");
+
+            // Add action to the View button
+            viewButton.setOnAction(event -> {
+                if (FrontBorderpane == null) {
+                    System.err.println("FrontBorderpane is not set. Ensure it is passed from HomeFrontController.");
+                    return;
+                }
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommunityDetails.fxml"));
+                    AnchorPane communityDetailsPane = loader.load();
+
+                    // Get the controller and pass the community data
+                    CommunityDetailsController controller = loader.getController();
+                    controller.setCommunity(community);
+
+                    // Set the loaded pane in the center of the BorderPane
+                    FrontBorderpane.setCenter(communityDetailsPane);
+                } catch (IOException e) {
+                    System.err.println("Error loading CommunityDetails.fxml: " + e.getMessage());
+                }
+            });
 
             HBox buttons = new HBox(5, joinButton, viewButton);
             card.getChildren().addAll(imageView, nameLabel, detailsLabel, buttons);
