@@ -183,7 +183,7 @@ public class CommunityDetailsController {
     private void showEventDetails(Events event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDetails.fxml"));
-            AnchorPane eventDetailsPane = loader.load();
+            BorderPane eventDetailsPane = loader.load();
 
             EventDetailsController controller = loader.getController();
             controller.setEvent(event);
