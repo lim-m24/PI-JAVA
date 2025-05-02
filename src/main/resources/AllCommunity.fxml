@@ -24,11 +24,11 @@
             <TableView fx:id="tableviewCommunity" prefWidth="800" prefHeight="900" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="nomCol" prefWidth="75.0" text="Nom" />
-                    <TableColumn fx:id="descriptionCol" prefWidth="75.0" text="Description" />
+                    <TableColumn fx:id="descriptionCol" prefWidth="150.0" text="Description" />
                     <TableColumn fx:id="coverCol" prefWidth="75.0" text="Cover" />
                     <TableColumn fx:id="categoryCol" prefWidth="100.0" text="Category" />
-                    <TableColumn fx:id="nbrCol" prefWidth="50.0" text="Nbr Membre" />
-                    <TableColumn fx:id="statutCol" prefWidth="50.0" text="Statut" />
+                    <TableColumn fx:id="nbrCol" prefWidth="70.0" text="Nbr Membre" />
+                    <TableColumn fx:id="statutCol" prefWidth="70.0" text="Statut" />
                     <TableColumn fx:id="createdAtCol" prefWidth="114.0" text="Created At" />
                     <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
                 </columns>

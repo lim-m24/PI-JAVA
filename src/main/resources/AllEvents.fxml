@@ -12,6 +12,7 @@
 <?import javafx.scene.control.ComboBox?>
 
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.DatePicker?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.EventReadAllController">
         <!-- Left: Table View -->
     <center>
@@ -24,14 +25,14 @@
             <TableView fx:id="tableviewEvent" prefWidth="800" prefHeight="900" VBox.vgrow="ALWAYS">
                 <columns>
                     <TableColumn fx:id="nomCol" prefWidth="100.0" text="Nom" />
-                    <TableColumn fx:id="descriptionCol" prefWidth="150.0" text="Description" />
+                    <TableColumn fx:id="descriptionCol" prefWidth="130.0" text="Description" />
                     <TableColumn fx:id="startedAtCol" prefWidth="120.0" text="Start Date" />
                     <TableColumn fx:id="finishAtCol" prefWidth="120.0" text="Finish Date" />
                     <TableColumn fx:id="lieuCol" prefWidth="100.0" text="Lieu" />
                     <TableColumn fx:id="typeCol" prefWidth="100.0" text="Type" />
                     <TableColumn fx:id="coverCol" prefWidth="100.0" text="Cover" />
-                    <TableColumn fx:id="linkCol" prefWidth="100.0" text="Link" />
-                    <TableColumn fx:id="accesCol" prefWidth="100.0" text="Acces" />
+                    <TableColumn fx:id="linkCol" prefWidth="70.0" text="Link" />
+                    <TableColumn fx:id="accesCol" prefWidth="70.0" text="Acces" />
                     <TableColumn fx:id="communityIdCol" prefWidth="80.0" text="Community" />
                     <TableColumn fx:id="actionCol" text="Actions" prefWidth="150.0" />
                 </columns>
@@ -49,8 +50,18 @@
 
             <TextField fx:id="nomField" promptText="Nom" />
             <TextField fx:id="descriptionField" promptText="Description" />
-            <TextField fx:id="startedAtField" promptText="Start Date (yyyy-MM-dd HH:mm)" />
-            <TextField fx:id="finishAtField" promptText="Finish Date (yyyy-MM-dd HH:mm)" />
+            <VBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 20;">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Start Date:" style="-fx-text-fill: #333333; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <DatePicker fx:id="startedAtDatePicker" promptText="Select Start Date" />
+                    <TextField fx:id="startedAtTimeField" promptText="HH:mm (e.g., 14:30)" prefWidth="80" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Finish Date:" style="-fx-text-fill: #333333; -fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <DatePicker fx:id="finishAtDatePicker" promptText="Select Finish Date" />
+                    <TextField fx:id="finishAtTimeField" promptText="HH:mm (e.g., 14:30)" prefWidth="80" />
+                </HBox>
+            </VBox>
             <TextField fx:id="lieuField" promptText="Lieu" />
             <TextField fx:id="typeField" promptText="Type" />
             <Button style="-fx-background-color: #1e1e1e; -fx-text-fill: white;" text="Upload Cover" onAction="#handleUploadImage" />

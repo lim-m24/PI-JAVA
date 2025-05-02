@@ -1,6 +1,7 @@
 package tn.esprit.Controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -17,24 +18,32 @@ import tn.esprit.Models.Events;
 import tn.esprit.Services.CommunityService;
 import tn.esprit.Services.EventService;
 import tn.esprit.Services.EventUserService;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
+
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.common.BitMatrix;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.io.image.ImageDataFactory;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 
 public class CommunityDetailsController {
 
@@ -113,43 +122,96 @@ public class CommunityDetailsController {
                 .filter(event -> event.getId_community_id() == community.getId())
                 .collect(Collectors.toList());
 
-        // Get event statistics
-        Map<Integer, int[]> eventStats = eventUserService.getEventStats();
-
         eventsGrid.getChildren().clear(); // Clear existing events
         for (Events event : events) {
             String dateRange = event.getStarted_at().toLocalDate().toString() + " " +
                     event.getStarted_at().toLocalTime().toString() + " - " +
                     event.getFinish_at().toLocalDate().toString() + " " +
                     event.getFinish_at().toLocalTime().toString();
-            int[] stats = eventStats.getOrDefault(event.getId(), new int[]{0, 0});
-            String statsString = stats[0] + " Participated • " + stats[1] + " Interested";
-            addEvent(event.getNom(), dateRange, statsString);
+            addEvent(event, dateRange);
         }
     }
 
-    private void addEvent(String title, String date, String stats) {
-        VBox eventCard = new VBox(5);
-        eventCard.setStyle("-fx-background-color: #2C3E50; -fx-padding: 10; -fx-border-radius: 5;");
+    private void addEvent(Events event, String dateRange) {
+        VBox eventCard = new VBox(10);
+        eventCard.setStyle("-fx-background-color: #2C3E50; -fx-padding: 10; -fx-border-radius: 5; -fx-cursor: hand;");
+        eventCard.setOnMouseClicked(e -> showEventDetails(event));
 
-        ImageView eventImage = new ImageView(new Image("/images/placeholder.jpg"));
-        eventImage.setFitWidth(150);
-        eventImage.setFitHeight(100);
+        // Event Cover Image
+        ImageView eventImage = new ImageView();
+        eventImage.setFitWidth(200);
+        eventImage.setFitHeight(150);
+        String coverPath = event.getCover();
+        if (coverPath != null && !coverPath.isEmpty()) {
+            File file = new File("." + coverPath);
+            if (file.exists()) {
+                eventImage.setImage(new Image(file.toURI().toString()));
+            } else {
+                eventImage.setImage(new Image("/images/placeholder.jpg"));
+            }
+        } else {
+            eventImage.setImage(new Image("/images/placeholder.jpg"));
+        }
 
-        Label titleLabel = new Label(title);
-        titleLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold;");
+        // Event Title
+        Label titleLabel = new Label(event.getNom());
+        titleLabel.setStyle("-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16;");
 
-        Label dateLabel = new Label(date);
-        dateLabel.setStyle("-fx-text-fill: gray;");
+        // Date Label
+        Label dateLabel = new Label(dateRange);
+        dateLabel.setStyle("-fx-text-fill: gray; -fx-font-size: 12;");
 
-        Label statsLabel = new Label(stats);
-        statsLabel.setStyle("-fx-text-fill: gray;");
+        // Buttons
+        HBox buttonBox = new HBox(10);
+        Button interestedButton = new Button("Interested");
+        interestedButton.setStyle("-fx-background-color: #F39C12; -fx-text-fill: white; -fx-padding: 5 10;");
+        interestedButton.setOnAction(e -> handleInterested(event));
 
-        eventCard.getChildren().addAll(eventImage, titleLabel, dateLabel, statsLabel);
+        Button goingButton = new Button("Going");
+        goingButton.setStyle("-fx-background-color: #F39C12; -fx-text-fill: white; -fx-padding: 5 10;");
+        goingButton.setOnAction(e -> handleGoing(event));
+
+        buttonBox.getChildren().addAll(interestedButton, goingButton);
+
+        eventCard.getChildren().addAll(eventImage, titleLabel, dateLabel, buttonBox);
 
         int row = eventsGrid.getChildren().size() / 3;
         int col = eventsGrid.getChildren().size() % 3;
         eventsGrid.add(eventCard, col, row);
+    }
+
+    private void showEventDetails(Events event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/EventDetails.fxml"));
+            AnchorPane eventDetailsPane = loader.load();
+
+            EventDetailsController controller = loader.getController();
+            controller.setEvent(event);
+
+            if (FrontBorderpane != null) {
+                FrontBorderpane.setCenter(eventDetailsPane);
+            } else {
+                System.err.println("FrontBorderpane is not set in CommunityDetailsController.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error loading EventDetails.fxml: " + e.getMessage());
+        }
+    }
+
+    private void handleInterested(Events event) {
+        // Logic to mark user as interested
+        System.out.println("User marked as interested in event: " + event.getNom());
+        // Add to event_user table with type "Interested" using EventUserService
+        // Example: eventUserService.Add(new EventUser(currentUserId, event.getId(), "Interested"));
+        // Refresh UI if needed
+    }
+
+    private void handleGoing(Events event) {
+        // Logic to mark user as going
+        System.out.println("User marked as going to event: " + event.getNom());
+        // Add to event_user table with type "Participate" using EventUserService
+        // Example: eventUserService.Add(new EventUser(currentUserId, event.getId(), "Participate"));
+        // Refresh UI if needed
     }
 
     private void loadSuggestedCommunities() {
@@ -202,7 +264,7 @@ public class CommunityDetailsController {
                 }
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/CommunityDetails.fxml"));
-                    BorderPane communityDetailsPane = loader.load();
+                    AnchorPane communityDetailsPane = loader.load();
 
                     CommunityDetailsController controller = loader.getController();
                     controller.setCommunity(suggested);
@@ -242,16 +304,12 @@ public class CommunityDetailsController {
 
         contextMenu.getItems().addAll(shareItem, copyLinkItem);
 
-        // Apply styles to the ContextMenu
         contextMenu.setStyle("-fx-background-color: #2C3E50; -fx-border-radius: 5;");
 
-        // Style each MenuItem and handle hover effects
         for (MenuItem item : contextMenu.getItems()) {
-            // Default style
             item.setStyle("-fx-text-fill: #FFFFFF; -fx-background-color: #2C3E50; -fx-padding: 5 10 5 10;");
         }
 
-        // Show the context menu on left-click
         menuButton.setOnAction(event -> {
             contextMenu.show(menuButton,
                     menuButton.getScene().getWindow().getX() + menuButton.localToScene(menuButton.getBoundsInLocal()).getMinX(),
@@ -261,14 +319,10 @@ public class CommunityDetailsController {
 
     private void showQRCodePopup() {
         try {
-            // Generate the URL with the community ID
             String url = "www.syncylinky.tn/community/" + community.getId();
-
-            // Generate QR code
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
             BitMatrix bitMatrix = qrCodeWriter.encode(url, BarcodeFormat.QR_CODE, 200, 200);
 
-            // Convert BitMatrix to BufferedImage
             BufferedImage bufferedImage = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
             for (int x = 0; x < 200; x++) {
                 for (int y = 0; y < 200; y++) {
@@ -276,13 +330,11 @@ public class CommunityDetailsController {
                 }
             }
 
-            // Convert BufferedImage to JavaFX Image
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "png", baos);
+            javax.imageio.ImageIO.write(bufferedImage, "png", baos);
             ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
             Image qrImage = new Image(bais);
 
-            // Create popup window
             Stage popupStage = new Stage();
             popupStage.setTitle("Share Community - QR Code");
 
@@ -290,19 +342,57 @@ public class CommunityDetailsController {
             qrImageView.setFitWidth(200);
             qrImageView.setFitHeight(200);
 
-            StackPane popupLayout = new StackPane(qrImageView);
+            // Add Download Button
+            Button downloadButton = new Button("Download as PDF");
+            downloadButton.setStyle("-fx-background-color: #F39C12; -fx-text-fill: white; -fx-padding: 5 15; -fx-background-radius: 5;");
+            downloadButton.setOnAction(e -> downloadQRCodeAsPDF(bufferedImage));
+
+            StackPane popupLayout = new StackPane();
+            popupLayout.getChildren().addAll(qrImageView, downloadButton);
+            StackPane.setAlignment(downloadButton, javafx.geometry.Pos.BOTTOM_CENTER);
             popupLayout.setStyle("-fx-background-color: #1A2A44; -fx-padding: 20;");
 
-            Scene popupScene = new Scene(popupLayout, 240, 240);
+            Scene popupScene = new Scene(popupLayout, 240, 280); // Increased height to accommodate button
             popupStage.setScene(popupScene);
 
-            // Center the popup relative to the main window
             popupStage.setX(menuButton.getScene().getWindow().getX() + (menuButton.getScene().getWindow().getWidth() - popupStage.getWidth()) / 2);
             popupStage.setY(menuButton.getScene().getWindow().getY() + (menuButton.getScene().getWindow().getHeight() - popupStage.getHeight()) / 2);
 
             popupStage.show();
         } catch (WriterException | IOException e) {
             System.err.println("Error generating QR code: " + e.getMessage());
+        }
+    }
+
+    private void downloadQRCodeAsPDF(BufferedImage qrImage) {
+        try {
+
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Save QR Code as PDF");
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+            File file = fileChooser.showSaveDialog(new Stage());
+
+            if (file != null) {
+                PdfWriter writer = new PdfWriter(new FileOutputStream(file));
+                PdfDocument pdfDoc = new PdfDocument(writer);
+                Document document = new Document(pdfDoc);
+
+                // Convert BufferedImage to PdfImage
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                javax.imageio.ImageIO.write(qrImage, "png", baos);
+                byte[] imageBytes = baos.toByteArray();
+                com.itextpdf.layout.element.Image pdfImage = new com.itextpdf.layout.element.Image(ImageDataFactory.create(imageBytes));
+
+                // Add image to PDF (centered)
+                pdfImage.setWidth(200);
+                pdfImage.setHeight(200);
+                document.add(pdfImage);
+
+                document.close();
+                System.out.println("QR Code saved as PDF: " + file.getAbsolutePath());
+            }
+        } catch (IOException e) {
+            System.err.println("Error saving QR code as PDF: " + e.getMessage());
         }
     }
 }

@@ -18,7 +18,9 @@ import javafx.scene.layout.HBox;
 import javafx.geometry.Insets;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
@@ -83,9 +85,31 @@ public class EventReadAllController {
     private static final double ROW_HEIGHT = 60.0;
     private final Map<Integer, String> communityNameMap = new HashMap<>();
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    @FXML
+    private DatePicker startedAtDatePicker;
+
+    @FXML
+    private TextField startedAtTimeField;
+
+    @FXML
+    private DatePicker finishAtDatePicker;
+
+    @FXML
+    private TextField finishAtTimeField;
+
+    private LocalDateTime startedAt;
+    private LocalDateTime finishAt;
 
     @FXML
     void initialize() {
+        startedAtDatePicker.setValue(LocalDate.now());
+        finishAtDatePicker.setValue(LocalDate.now().plusDays(1));
+
+        startedAtDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> updateStartedAt());
+        startedAtTimeField.textProperty().addListener((obs, oldVal, newVal) -> updateStartedAt());
+        finishAtDatePicker.valueProperty().addListener((obs, oldVal, newVal) -> updateFinishAt());
+        finishAtTimeField.textProperty().addListener((obs, oldVal, newVal) -> updateFinishAt());
+
         List<Events> events = eventService.readAll();
         ObservableList<Events> observableList = FXCollections.observableList(events);
         tableviewEvent.setItems(observableList);
@@ -155,6 +179,36 @@ public class EventReadAllController {
         );
         tableviewEvent.minHeightProperty().bind(tableviewEvent.prefHeightProperty());
         tableviewEvent.maxHeightProperty().bind(tableviewEvent.prefHeightProperty());
+    }
+
+    private void updateStartedAt() {
+        try {
+            LocalDate date = startedAtDatePicker.getValue();
+            LocalTime time = LocalTime.parse(startedAtTimeField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+            startedAt = LocalDateTime.of(date, time);
+            System.out.println("Started At: " + startedAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        } catch (Exception e) {
+            System.err.println("Invalid start date/time format: " + e.getMessage());
+        }
+    }
+
+    private void updateFinishAt() {
+        try {
+            LocalDate date = finishAtDatePicker.getValue();
+            LocalTime time = LocalTime.parse(finishAtTimeField.getText(), DateTimeFormatter.ofPattern("HH:mm"));
+            finishAt = LocalDateTime.of(date, time);
+            System.out.println("Finish At: " + finishAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        } catch (Exception e) {
+            System.err.println("Invalid finish date/time format: " + e.getMessage());
+        }
+    }
+
+    public LocalDateTime getStartedAt() {
+        return startedAt;
+    }
+
+    public LocalDateTime getFinishAt() {
+        return finishAt;
     }
 
     private void loadCommunities() {

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.EventDetailsController" prefWidth="1200" prefHeight="800" stylesheets="@/style.css">
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: #1A2A44;">
+            <content>
+                <VBox alignment="CENTER" spacing="20" style="-fx-background-color: #1A2A44; -fx-padding: 20;" VBox.vgrow="ALWAYS">
+                    <!-- Cover Image -->
+                    <ImageView fx:id="coverImageView" fitWidth="800" fitHeight="400" preserveRatio="true" />
+
+                    <!-- Event Details -->
+                    <VBox spacing="10" style="-fx-background-color: #2C3E50; -fx-padding: 15; -fx-border-radius: 5;" alignment="CENTER_LEFT" prefWidth="800">
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label fx:id="eventDateLabel" style="-fx-text-fill: #F39C12; -fx-font-size: 20; -fx-font-weight: bold;" />
+                            <Label fx:id="eventTimeRangeLabel" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                        </HBox>
+                        <Label fx:id="eventNameLabel" style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;" />
+                        <HBox spacing="5" alignment="CENTER_LEFT">
+                            <Label fx:id="eventTypeLabel" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                            <Label text="Public" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                            <Label text="•" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                            <Label text="Visible" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                        </HBox>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="Days" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                            <Label fx:id="timerDaysLabel" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" />
+                            <Label text="Hours" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                            <Label fx:id="timerHoursLabel" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" />
+                            <Label text="Min" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                            <Label fx:id="timerMinutesLabel" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" />
+                            <Label text="Sec" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                            <Label fx:id="timerSecondsLabel" style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;" />
+                        </HBox>
+                        <Text fx:id="eventDescriptionText" wrappingWidth="700" style="-fx-fill: white; -fx-font-size: 14;" />
+                        <!-- Weather Information -->
+                        <VBox fx:id="weatherBox" spacing="5" style="-fx-padding: 10;">
+                            <Label text="Weather on Event Date" style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;" />
+                            <HBox spacing="10">
+                                <Label text="Temperature:" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                                <Label fx:id="weatherTempLabel" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                            </HBox>
+                            <HBox spacing="10">
+                                <Label text="Wind Speed:" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                                <Label fx:id="weatherWindLabel" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                            </HBox>
+                            <HBox spacing="10">
+                                <Label text="Precipitation:" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                                <Label fx:id="weatherPrecipLabel" style="-fx-text-fill: white; -fx-font-size: 14;" />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+                    <!-- Buttons for Interested and Going -->
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button fx:id="interestedButton" text="Interested" style="-fx-background-color: #F39C12; -fx-text-fill: white; -fx-padding: 5 15;" />
+                        <Button fx:id="goingButton" text="Going" style="-fx-background-color: #F39C12; -fx-text-fill: white; -fx-padding: 5 15;" />
+                    </HBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <right>
+        <!-- Right Sidebar (Status and Invite Friends) -->
+        <VBox spacing="20" prefWidth="280">
+            <!-- Status Section -->
+            <VBox spacing="10" style="-fx-background-color: #2C3E50; -fx-padding: 15; -fx-border-radius: 5;">
+                <Label text="Status" style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;" />
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="Interested" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                    <Label fx:id="interestedCountLabel" style="-fx-text-fill: #F39C12; -fx-font-size: 14;" />
+                </HBox>
+                <HBox spacing="5" alignment="CENTER_LEFT">
+                    <Label text="Going" style="-fx-text-fill: gray; -fx-font-size: 14;" />
+                    <Label fx:id="goingCountLabel" style="-fx-text-fill: #F39C12; -fx-font-size: 14;" />
+                </HBox>
+            </VBox>
+
+            <!-- Invite Friends Section -->
+            <VBox fx:id="inviteFriendsVBox" spacing="10" style="-fx-background-color: #2C3E50; -fx-padding: 15; -fx-border-radius: 5;">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="Invite friends" style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;" />
+                    <Button text="Invite" style="-fx-text-fill: #3B82F6; -fx-background-color: transparent;" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </right>
+</BorderPane>

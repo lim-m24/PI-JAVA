@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
@@ -7,7 +6,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.image.Image?>
-<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.CommunityDetailsController" prefWidth="1200" prefHeight="800" stylesheets="@/style.css">    <!-- Wrap the entire content in a ScrollPane -->
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.CommunityDetailsController" prefWidth="1200" prefHeight="800" stylesheets="@/style.css">
     <center>
         <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: #1A2A44;">
             <content>
@@ -38,15 +37,12 @@
                         <Button fx:id="membersTab" text="Members" style="-fx-text-fill: white; -fx-background-color: transparent;" />
                     </HBox>
 
-                    <!-- Events and Sidebar (About + Suggested Communities) -->
-                    <HBox spacing="20" alignment="CENTER">
-                        <!-- Events Section with GridPane -->
-                        <VBox spacing="10" prefWidth="600">
-                            <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" fitToWidth="true" style="-fx-background: #1A2A44;">
-                                <GridPane fx:id="eventsGrid" hgap="10" vgap="10" style="-fx-padding: 10;" />
-                            </ScrollPane>
-                        </VBox>
-                    </HBox>
+                    <!-- Events Section with GridPane -->
+                    <VBox spacing="10" prefWidth="600">
+                        <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" fitToWidth="true" style="-fx-background: #1A2A44;">
+                            <GridPane fx:id="eventsGrid" hgap="10" vgap="10" style="-fx-padding: 10;" />
+                        </ScrollPane>
+                    </VBox>
                 </VBox>
             </content>
         </ScrollPane>

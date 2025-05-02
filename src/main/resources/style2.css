@@ -8,20 +8,20 @@
 
 /* Hover effect */
 .button:hover {
-    -fx-background-color: #FF6347;
+    -fx-background-color: #f26e0a;
     -fx-cursor: hand;
 }
 
 /* Specific hover effects for sidebar buttons */
 #btnUsers:hover, #btnCommunities:hover {
     -fx-background-color: rgba(0, 0, 0, 0.2);
-    -fx-text-fill: #FF6347;
+    -fx-text-fill: #f26e0a;
 }
 
 /* Hover effect for submenu buttons */
 #usersSubmenu .button:hover, #communitiesSubmenu .button:hover {
     -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-text-fill: #FF6347;
+    -fx-text-fill: #f26e0a;
 }
 .VBox{
     -fx-background-color: #1e1e1e;
@@ -49,7 +49,7 @@
 
 
 .add-btn:hover {
-    -fx-background-color: #0056b3;
+    -fx-background-color: #f26e0a;
 }
 .title-label {
     -fx-font-size: 18px;
@@ -63,30 +63,107 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0.2, 0, 4);
 }
 
+/* Main TableView Styling */
 .table-view {
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif; /* Modern font */
     -fx-font-size: 14px;
-    -fx-table-cell-border-color: transparent;
+    -fx-background-color: #ffffff; /* Clean white background */
+    -fx-border-color: #e0e0e0; /* Subtle border */
+    -fx-border-radius: 8px; /* Rounded corners */
+    -fx-background-radius: 8px;
     -fx-padding: 10;
-    -fx-cell-size: 40px; /* Hauteur fixe des lignes */
+    -fx-cell-size: 40px; /* Consistent row height */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0, 0, 2); /* Subtle shadow for depth */
+}
+
+/* Column Headers */
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #f26e0a, #e65c00); /* Gradient for header */
+    -fx-background-radius: 8px 8px 0 0; /* Rounded top corners */
+    -fx-border-color: transparent;
 }
 
 .table-view .column-header,
 .table-view .filler {
-    -fx-size: 40px;
-    -fx-background-color: #f5f5f5;
+    -fx-background-color: transparent; /* Transparent to show gradient */
     -fx-border-color: transparent;
     -fx-alignment: CENTER-LEFT;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff; /* White text for contrast */
+    -fx-padding: 0 10 0 10;
 }
 
+.table-view .column-header .label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Table Rows */
 .table-view .table-row-cell {
-    -fx-background-color: white;
-    -fx-border-color: transparent transparent #eaeaea transparent;
+    -fx-background-color: #ffffff; /* White background for rows */
+    -fx-border-color: transparent transparent #f0f0f0 transparent; /* Subtle bottom border */
     -fx-padding: 5 10 5 10;
+    -fx-text-fill: #333333; /* Dark text for readability */
+    -fx-transition: -fx-background-color 0.2s ease-in-out; /* Smooth transition for hover */
+}
+
+.table-view .table-row-cell:odd {
+    -fx-background-color: #f9f9f9; /* Alternating row color for readability */
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #f5f5f5; /* Light gray on hover */
+    -fx-cursor: hand; /* Hand cursor on hover */
 }
 
 .table-view .table-row-cell:filled:selected,
 .table-view .table-row-cell:focused:selected {
-    -fx-background-color: #e0f3ff;
+    -fx-background-color: #e0f3ff; /* Light blue for selected rows */
+    -fx-text-fill: #333333;
+}
+
+/* Table Cells */
+.table-view .table-cell {
+    -fx-alignment: CENTER-LEFT;
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+}
+
+/* Scrollbars */
+.table-view .scroll-bar:vertical,
+.table-view .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #cccccc; /* Light gray thumb */
+    -fx-background-radius: 5px;
+    -fx-opacity: 0.7;
+    -fx-transition: -fx-opacity 0.2s ease-in-out;
+}
+
+.table-view .scroll-bar:vertical .thumb:hover,
+.table-view .scroll-bar:horizontal .thumb:hover {
+    -fx-opacity: 1.0;
+}
+
+.table-view .scroll-bar .track {
+    -fx-background-color: #f5f5f5;
+    -fx-background-radius: 5px;
+}
+
+/* Corner Styling */
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+/* Placeholder for Empty Table */
+.table-view .placeholder .label {
+    -fx-text-fill: #999999;
+    -fx-font-size: 14px;
+    -fx-font-style: italic;
 }
 
 .root {
@@ -99,9 +176,85 @@
 }
 
 .button:hover {
-    -fx-background-color: #3B82F6;
+    -fx-background-color: #f26e0a;
 }
 
 .label {
     -fx-text-fill: white;
+}
+/* DatePicker Styling */
+.date-picker {
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 5 10 5 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 5, 0, 0, 1);
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #f26e0a;
+    -fx-background-radius: 0 6px 6px 0;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #e65c00;
+}
+
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-text-fill: #333333;
+}
+
+.date-picker .calendar-grid {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6px;
+}
+
+.date-picker .calendar-grid .day-cell {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-background-color: #ffffff;
+    -fx-padding: 5;
+}
+
+.date-picker .calendar-grid .day-cell:hover {
+    -fx-background-color: #f5f5f5;
+    -fx-cursor: hand;
+}
+
+.date-picker .calendar-grid .day-cell:filled:selected,
+.date-picker .calendar-grid .day-cell:focused:selected {
+    -fx-background-color: #e0f3ff;
+    -fx-text-fill: #333333;
+}
+
+.date-picker .calendar-grid .day-cell.today {
+    -fx-background-color: rgba(242, 110, 10, 0.33);
+    -fx-text-fill: #ffffff;
+}
+
+/* TextField for Time */
+.text-field {
+    -fx-font-family: "Segoe UI", "Roboto", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 5 10 5 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 5, 0, 0, 1);
+}
+
+.text-field:focused {
+    -fx-border-color: #f26e0a;
+    -fx-border-width: 2;
+}
+
+.text-field:hover {
+    -fx-background-color: #f9f9f9;
 }
