@@ -6,10 +6,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.time.LocalDate;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -34,6 +38,13 @@ public class UserAbonnementsController {
     @FXML
     private FlowPane flowPane;
 
+    @FXML
+    private Button btnScanQR;
+
+    @FXML
+    private TextField qrResultField;
+
+
     private final AbonnementService abonnementService = new AbonnementService();
     private final GamificationService gamificationService = new GamificationService();
     private final PaymentService paymentService = new PaymentService();
@@ -42,7 +53,36 @@ public class UserAbonnementsController {
 
     @FXML
     public void initialize() {
+
         loadAbonnements();
+
+        btnScanQR.setOnAction(event -> {
+            try {
+                ProcessBuilder builder = new ProcessBuilder("C:\\Program Files\\Python313\\python.exe", "D:\\projets\\Nouveau dossier\\PI-JAVA\\QR_codeReader.py");
+
+                builder.redirectErrorStream(true);
+                Process process = builder.start();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                String line;
+                StringBuilder output = new StringBuilder();
+
+                while ((line = reader.readLine()) != null) {
+                    output.append(line);
+                }
+
+                int exitCode = process.waitFor();
+                if (exitCode == 0) {
+                    qrResultField.setText(output.toString());
+                } else {
+                    qrResultField.setText("Erreur de script.");
+                }
+
+            } catch (IOException | InterruptedException e) {
+                qrResultField.setText("Erreur : " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
     }
 
     private void loadAbonnements() {
@@ -115,13 +155,30 @@ public class UserAbonnementsController {
         contentBox.getChildren().addAll(nomLabel, typeLabel);
 
         // QR Code
-        Image qrCodeImage = qrCodeService.generateQRCode(String.valueOf(abonnement.getId()), 100, 100);
+// Récupérer le nom et le prix de l'abonnement
+        String nomAbonnement = abonnement.getNom();
+        double prixAbonnement = abonnement.getPrix();
+
+// Vérifier les données
+        System.out.println("Nom: " + nomAbonnement + ", Prix: " + prixAbonnement);
+
+// Appel au service QR
+        Image qrCodeImage = qrCodeService.generateQRCode(nomAbonnement, 200, 200);
+
+
+// Créer l'ImageView pour afficher le QR code
         ImageView qrCodeImageView = new ImageView(qrCodeImage);
         qrCodeImageView.setFitWidth(100);
         qrCodeImageView.setFitHeight(100);
+
+// Créer un StackPane pour contenir le QR code
         StackPane qrCodePane = new StackPane(qrCodeImageView);
         qrCodePane.setAlignment(Pos.CENTER);
         qrCodePane.setPadding(new Insets(10, 0, 0, 0));
+
+
+
+
 
         // Pay Button
         Button payButton = new Button("Pay");
@@ -257,4 +314,5 @@ public class UserAbonnementsController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+
 }
