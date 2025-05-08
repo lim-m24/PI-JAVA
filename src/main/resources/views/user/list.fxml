@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tooltip?>
+
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.Controllers.UserController"
+            styleClass="root">
+
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <top>
+        <VBox spacing="15">
+            <!-- Main title -->
+            <HBox spacing="15" alignment="CENTER_LEFT" styleClass="section-box">
+                <Label text="Users Management" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button text="Add New User" onAction="#handleAddUser" styleClass="add-button">
+                    <graphic>
+                        <Label text="➕" styleClass="icon-label"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Add a new user to the system"/>
+                    </tooltip>
+                </Button>
+                <Button text="Export Users" onAction="#handleExportUsers" styleClass="export-button">
+                    <graphic>
+                        <Label text="📄" styleClass="icon-label"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Export users to CSV"/>
+                    </tooltip>
+                </Button>
+                <Button text="Export to PDF" onAction="#handleExportToPdf" styleClass="export-button">
+                    <graphic>
+                        <Label text="📑" styleClass="icon-label"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Export users to PDF format"/>
+                    </tooltip>
+                </Button>
+                <Button text="Statistics" onAction="#showUserStatistics" styleClass="stats-button">
+                    <graphic>
+                        <Label text="📊" styleClass="icon-label"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="View user statistics and analytics"/>
+                    </tooltip>
+                </Button>
+            </HBox>
+
+            <!-- Search and filters section -->
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="filter-section">
+                <Label text="Filters" styleClass="filter-label"/>
+                <TextField fx:id="searchField" promptText="Search by name or email" HBox.hgrow="ALWAYS" styleClass="text-field">
+                    <tooltip>
+                        <Tooltip text="Enter name or email to search"/>
+                    </tooltip>
+                </TextField>
+                <Label text="Role" styleClass="filter-label"/>
+                <ComboBox fx:id="roleFilter" prefWidth="150" styleClass="combo-box">
+                    <tooltip>
+                        <Tooltip text="Filter users by role"/>
+                    </tooltip>
+                </ComboBox>
+                <Label text="Status" styleClass="filter-label"/>
+                <ComboBox fx:id="statusFilter" prefWidth="150" styleClass="combo-box">
+                    <tooltip>
+                        <Tooltip text="Filter users by status"/>
+                    </tooltip>
+                </ComboBox>
+                <Button text="Apply" onAction="#handleSearchUsers" styleClass="apply-button">
+                    <graphic>
+                        <Label text="🔍" styleClass="icon-label"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Apply selected filters"/>
+                    </tooltip>
+                </Button>
+                <Button text="Reset" onAction="#handleResetFilters" styleClass="reset-button">
+                    <graphic>
+                        <Label text="🔄" styleClass="icon-label"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Clear all filters"/>
+                    </tooltip>
+                </Button>
+            </HBox>
+
+            <!-- Bulk actions section -->
+            <HBox spacing="10" alignment="CENTER_LEFT" styleClass="bulk-actions-section">
+                <Label text="Bulk Actions:" styleClass="section-label"/>
+                <CheckBox fx:id="selectAllCheckBox" text="Select All" onAction="#handleSelectAll" styleClass="checkbox">
+                    <tooltip>
+                        <Tooltip text="Select or unselect all displayed users"/>
+                    </tooltip>
+                </CheckBox>
+                <ComboBox fx:id="bulkActionComboBox" prefWidth="200" promptText="Choose action" styleClass="combo-box">
+                    <tooltip>
+                        <Tooltip text="Select or unselect all displayed users"/>
+                    </tooltip>
+                </ComboBox>
+                <Button text="Apply to Selected" onAction="#handleBulkAction" styleClass="apply-button">
+                    <graphic>
+                        <Label text="✅" styleClass="icon-label"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="Apply the selected action to all selected users"/>
+                    </tooltip>
+                </Button>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="selectedCountLabel" text="0 selected" styleClass="count-label"/>
+                <Label fx:id="userCountLabel" text="Total: 0 users" styleClass="total-count-label"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <!-- Users table -->
+            <TableView fx:id="usersTable" VBox.vgrow="ALWAYS" styleClass="table-view">
+                <columns>
+                    <TableColumn text="Email" prefWidth="250">
+                        <cellValueFactory><PropertyValueFactory property="email"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Name" prefWidth="150">
+                        <cellValueFactory><PropertyValueFactory property="name"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Role" prefWidth="120">
+                        <cellValueFactory><PropertyValueFactory property="role"/></cellValueFactory>
+                    </TableColumn>
+                    <TableColumn text="Status" prefWidth="100" fx:id="statusColumn"/>
+                    <TableColumn text="Actions" prefWidth="200" fx:id="actionsColumn"/>
+                </columns>
+                <placeholder>
+                    <Label text="No users found" styleClass="placeholder-label"/>
+                </placeholder>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+
+            <!-- Pagination -->
+            <HBox spacing="10" alignment="CENTER" styleClass="pagination-section">
+                <Label text="Page size:" styleClass="pagination-label"/>
+                <ComboBox fx:id="pageSizeComboBox" prefWidth="80" styleClass="combo-box"/>
+                <Pagination fx:id="userPagination" maxPageIndicatorCount="5" HBox.hgrow="ALWAYS" styleClass="pagination"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <StackPane fx:id="contentPane" VBox.vgrow="NEVER" styleClass="content-pane"/>
+    </bottom>
+</BorderPane>

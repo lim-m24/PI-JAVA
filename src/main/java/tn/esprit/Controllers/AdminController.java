@@ -3,6 +3,7 @@ package tn.esprit.Controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,16 +12,20 @@ import javafx.event.ActionEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+import tn.esprit.Models.Post;
+import tn.esprit.Models.User;
+import tn.esprit.Services.PostService;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import tn.esprit.Models.Post;
 import tn.esprit.Services.CategorieService;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.List;
 
 public class AdminController {
     private final CategorieService service=new CategorieService();
@@ -43,7 +48,11 @@ public class AdminController {
     @FXML
     private Button EventBTN;
     @FXML
+    private Button UserBTN;
+    @FXML
     private Text welcomeText;
+
+
 
     @FXML
     void initialize() throws SQLException {
@@ -60,6 +69,17 @@ public class AdminController {
             }
         } catch (Exception e) {
             System.out.println("Error loading logo: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void loadUser() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/user/list.fxml"));
+            Node userView = loader.load();
+            mainBorderPane.setCenter(userView);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

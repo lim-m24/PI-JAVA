@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.Controllers.EditUserController"
+      style="-fx-background-color: #1C2526; -fx-padding: 20px;"
+      spacing="15"
+      alignment="CENTER"
+      prefWidth="400"
+      prefHeight="500">
+    <Label text="Edit Your Information"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;"/>
+
+    <VBox spacing="5">
+        <Label text="First Name" style="-fx-text-fill: #D3D3D3;"/>
+        <TextField fx:id="firstNameField" style="-fx-background-color: #34495E; -fx-text-fill: #FFFFFF; -fx-background-radius: 5px;"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Email" style="-fx-text-fill: #D3D3D3;"/>
+        <TextField fx:id="emailField" style="-fx-background-color: #34495E; -fx-text-fill: #FFFFFF; -fx-background-radius: 5px;"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Current Password" style="-fx-text-fill: #D3D3D3;"/>
+        <PasswordField fx:id="currentPasswordField" style="-fx-background-color: #34495E; -fx-text-fill: #FFFFFF; -fx-background-radius: 5px;"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="New Password (leave blank to keep unchanged)" style="-fx-text-fill: #D3D3D3;"/>
+        <PasswordField fx:id="newPasswordField" style="-fx-background-color: #34495E; -fx-text-fill: #FFFFFF; -fx-background-radius: 5px;"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Save Changes" onAction="#handleSave"
+                style="-fx-background-color: #007BFF; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 5px;"/>
+        <Button text="Cancel" onAction="#handleCancel"
+                style="-fx-background-color: #DC3545; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 5px;"/>
+    </HBox>
+
+    <Button text="Deactivate Account" onAction="#handleDeactivate"
+            style="-fx-background-color: #FF4500; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 5px;"/>
+</VBox>

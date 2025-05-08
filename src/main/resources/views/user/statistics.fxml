@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.geometry.Insets?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.Controllers.UserStatsController"
+      spacing="15"
+      prefWidth="900" prefHeight="600"
+      style="-fx-background-color: #FFFFFF; -fx-font-family: 'Segoe UI';">
+
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <!-- Header -->
+    <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-padding: 0 0 10 0;">
+        <VBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+            <Label text="User Statistics" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+            <Label text="Overview of user activities and metrics" style="-fx-font-size: 12px; -fx-text-fill: #718096;"/>
+        </VBox>
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <ComboBox fx:id="periodFilter" prefWidth="120" style="-fx-background-color: #F7FAFC; -fx-border-color: #E2E8F0; -fx-border-radius: 4px;">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Last 7 days" />
+                        <String fx:value="Last 30 days" />
+                        <String fx:value="Last 3 months" />
+                        <String fx:value="Last 6 months" />
+                        <String fx:value="Last year" />
+                        <String fx:value="All time" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Button fx:id="exportStatsBtn" text="Export" onAction="#handleExportStats"
+                    style="-fx-background-color: #3182CE; -fx-text-fill: white; -fx-font-size: 12px; -fx-background-radius: 4px; -fx-padding: 6px 12px;"/>
+        </HBox>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                style="-fx-background: transparent; -fx-background-color: transparent;">
+        <VBox spacing="15">
+            <!-- Key Metrics -->
+            <GridPane hgap="15" vgap="15" style="-fx-background-color: #FFFFFF; -fx-background-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="20"/>
+                    <ColumnConstraints percentWidth="20"/>
+                </columnConstraints>
+
+                <VBox GridPane.columnIndex="0" style="-fx-background-color: #EBF5FB; -fx-background-radius: 8px; -fx-padding: 12px;" alignment="CENTER">
+                    <Label text="Total Users" style="-fx-font-size: 12px; -fx-text-fill: #4A5568;"/>
+                    <Label fx:id="totalUsersLabel" text="0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                    <Label fx:id="totalUsersTrendLabel" text="0% this month" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                </VBox>
+
+                <VBox GridPane.columnIndex="1" style="-fx-background-color: #E6FFFB; -fx-background-radius: 8px; -fx-padding: 12px;" alignment="CENTER">
+                    <Label text="Active Users" style="-fx-font-size: 12px; -fx-text-fill: #4A5568;"/>
+                    <Label fx:id="activeUsersLabel" text="0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                    <Label fx:id="activeUsersTrendLabel" text="0% this month" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                </VBox>
+
+                <VBox GridPane.columnIndex="2" style="-fx-background-color: #FFF5F5; -fx-background-radius: 8px; -fx-padding: 12px;" alignment="CENTER">
+                    <Label text="Banned Users" style="-fx-font-size: 12px; -fx-text-fill: #4A5568;"/>
+                    <Label fx:id="bannedUsersLabel" text="0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                    <Label fx:id="bannedUsersTrendLabel" text="0% this month" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                </VBox>
+
+                <VBox GridPane.columnIndex="3" style="-fx-background-color: #FFFFF0; -fx-background-radius: 8px; -fx-padding: 12px;" alignment="CENTER">
+                    <Label text="Admin Users" style="-fx-font-size: 12px; -fx-text-fill: #4A5568;"/>
+                    <Label fx:id="adminUsersLabel" text="0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                    <Label fx:id="adminUsersTrendLabel" text="No change" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                </VBox>
+
+                <VBox GridPane.columnIndex="4" style="-fx-background-color: #EBF4FF; -fx-background-radius: 8px; -fx-padding: 12px;" alignment="CENTER">
+                    <Label text="New Users" style="-fx-font-size: 12px; -fx-text-fill: #4A5568;"/>
+                    <Label fx:id="newUsersTodayLabel" text="0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                    <Label fx:id="newUsersTrendLabel" text="0% vs yesterday" style="-fx-font-size: 10px; -fx-text-fill: #718096;"/>
+                </VBox>
+            </GridPane>
+
+            <!-- User Demographics -->
+            <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                <Label text="User Demographics" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                <Separator style="-fx-padding: 8px 0px;"/>
+                <GridPane hgap="15" vgap="15">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+                    <VBox GridPane.columnIndex="0" spacing="8">
+                        <Label text="Users by Role" style="-fx-font-size: 14px; -fx-text-fill: #4A5568;"/>
+                        <PieChart fx:id="rolesChart" legendVisible="true" minHeight="250"/>
+                    </VBox>
+                    <VBox GridPane.columnIndex="1" spacing="8">
+                        <Label text="Users by Status" style="-fx-font-size: 14px; -fx-text-fill: #4A5568;"/>
+                        <PieChart fx:id="statusChart" legendVisible="true" minHeight="250"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <!-- User Trends -->
+            <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                <Label text="User Trends" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                <Separator style="-fx-padding: 8px 0px;"/>
+                <GridPane hgap="15" vgap="15">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="50"/>
+                        <ColumnConstraints percentWidth="50"/>
+                    </columnConstraints>
+                    <VBox GridPane.columnIndex="0" spacing="8">
+                        <Label text="Registration Trend" style="-fx-font-size: 14px; -fx-text-fill: #4A5568;"/>
+                        <LineChart fx:id="registrationChart" createSymbols="false" minHeight="250">
+                            <xAxis>
+                                <CategoryAxis label="Month" style="-fx-font-size: 12px;"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="New Users" style="-fx-font-size: 12px;"/>
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+                    <VBox GridPane.columnIndex="1" spacing="8">
+                        <Label text="User Activity" style="-fx-font-size: 14px; -fx-text-fill: #4A5568;"/>
+                        <AreaChart fx:id="activityChart" createSymbols="false" minHeight="250">
+                            <xAxis>
+                                <CategoryAxis label="Date" style="-fx-font-size: 12px;"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Activity" style="-fx-font-size: 12px;"/>
+                            </yAxis>
+                        </AreaChart>
+                    </VBox>
+                    <VBox GridPane.columnIndex="0" GridPane.columnSpan="2" spacing="8">
+                        <Label text="Daily Comparison" style="-fx-font-size: 14px; -fx-text-fill: #4A5568;"/>
+                        <BarChart fx:id="dailyComparisonChart" minHeight="250">
+                            <xAxis>
+                                <CategoryAxis label="Date" style="-fx-font-size: 12px;"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Count" style="-fx-font-size: 12px;"/>
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <!-- Recent Activities -->
+            <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                <Label text="Recent Activities" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                <Separator style="-fx-padding: 8px 0px;"/>
+                <HBox spacing="10" alignment="CENTER_RIGHT">
+                    <ComboBox fx:id="actionFilterComboBox" prefWidth="150" style="-fx-background-color: #F7FAFC; -fx-border-color: #E2E8F0; -fx-border-radius: 4px;"/>
+                    <Button fx:id="refreshActivitiesBtn" text="Refresh" onAction="#handleRefreshActivities"
+                            style="-fx-background-color: #3182CE; -fx-text-fill: white; -fx-font-size: 12px; -fx-background-radius: 4px; -fx-padding: 6px 12px;"/>
+                </HBox>
+                <TableView fx:id="activitiesTable" minHeight="200" style="-fx-background-color: #FFFFFF; -fx-border-color: #E2E8F0; -fx-border-radius: 4px;">
+                    <columns>
+                        <TableColumn text="User" prefWidth="150">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="userName"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Action" prefWidth="120">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="action"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Date" prefWidth="150">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="timestamp"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn text="Details" prefWidth="300">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="details"/>
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+            </VBox>
+
+            <!-- Engagement Metrics -->
+            <VBox style="-fx-background-color: #FFFFFF; -fx-background-radius: 8px; -fx-padding: 15px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+                <Label text="Engagement Metrics" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2D3748;"/>
+                <Separator style="-fx-padding: 8px 0px;"/>
+                <GridPane hgap="15" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="33"/>
+                        <ColumnConstraints percentWidth="33"/>
+                        <ColumnConstraints percentWidth="33"/>
+                    </columnConstraints>
+                    <VBox GridPane.columnIndex="0" spacing="8">
+                        <Label text="Login Frequency" style="-fx-font-size: 12px; -fx-text-fill: #4A5568;"/>
+                        <ProgressBar fx:id="loginFrequencyBar" progress="0.0" prefWidth="Infinity" style="-fx-accent: #3182CE;"/>
+                        <Label fx:id="loginFrequencyLabel" text="0.0 times/week" style="-fx-font-size: 12px; -fx-text-fill: #718096;"/>
+                    </VBox>
+                    <VBox GridPane.columnIndex="1" spacing="8">
+                        <Label text="Session Duration" style="-fx-font-size: 12px; -fx-text-fill: #4A5568;"/>
+                        <ProgressBar fx:id="sessionDurationBar" progress="0.0" prefWidth="Infinity" style="-fx-accent: #3182CE;"/>
+                        <Label fx:id="sessionDurationLabel" text="0 minutes" style="-fx-font-size: 12px; -fx-text-fill: #718096;"/>
+                    </VBox>
+                    <VBox GridPane.columnIndex="2" spacing="8">
+                        <Label text="Retention Rate" style="-fx-font-size: 12px; -fx-text-fill: #4A5568;"/>
+                        <ProgressBar fx:id="retentionRateBar" progress="0.0" prefWidth="Infinity" style="-fx-accent: #3182CE;"/>
+                        <Label fx:id="retentionRateLabel" text="0% (30 days)" style="-fx-font-size: 12px; -fx-text-fill: #718096;"/>
+                    </VBox>
+                </GridPane>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>

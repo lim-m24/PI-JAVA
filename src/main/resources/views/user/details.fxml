@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" spacing="10">
+    <Label text="User Details" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="ID:" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+        <Label fx:id="idLabel" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+
+        <Label text="Email:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+        <Label fx:id="emailLabel" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+        <Label text="Name:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <Label fx:id="nameLabel" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+        <Label text="Firstname:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+        <Label fx:id="firstnameLabel" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+        <Label text="Username:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+        <Label fx:id="usernameLabel" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+        <Label text="Date of Birth:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+        <Label fx:id="dateOBLabel" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+        <Label text="Gender:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+        <Label fx:id="genderLabel" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+        <Label text="Role:" GridPane.rowIndex="7" GridPane.columnIndex="0" />
+        <Label fx:id="roleLabel" GridPane.rowIndex="7" GridPane.columnIndex="1" />
+
+        <Label text="Interests:" GridPane.rowIndex="8" GridPane.columnIndex="0" />
+        <ListView fx:id="interestsListView" GridPane.rowIndex="8" GridPane.columnIndex="1" />
+
+        <Label text="Status:" GridPane.rowIndex="9" GridPane.columnIndex="0" />
+        <HBox spacing="10" GridPane.rowIndex="9" GridPane.columnIndex="1">
+            <Label fx:id="bannedLabel" />
+            <Label fx:id="verifiedLabel" />
+        </HBox>
+    </GridPane>
+
+    <HBox spacing="10">
+        <Button text="Edit" onAction="#handleEdit" />
+        <Button text="Delete" onAction="#handleDelete" style="-fx-background-color: #ff4444; -fx-text-fill: white;" />
+        <Button text="Back" onAction="#handleBack" />
+    </HBox>
+</VBox>

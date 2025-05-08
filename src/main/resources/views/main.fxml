@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.collections.FXCollections?>
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.AdminController" stylesheets="@/style.css" prefHeight="1080" prefWidth="1920">
+    <left>
+        <VBox fx:id="sidebar" spacing="10" style="-fx-background-color: #1e1e1e; -fx-padding: 20;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+            <ImageView fx:id="logoImageView" fitHeight="200" fitWidth="200" layoutX="20" layoutY="20" pickOnBounds="true" preserveRatio="true" />
+
+            <Button  fx:id="UserBTN" text="User" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadUser"/>
+
+
+            <Button fx:id="btnCommunities" text="Communities" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#toggleCommunitiesSubmenu"/>
+            <VBox fx:id="communitiesSubmenu" spacing="5" visible="false" managed="false" style="-fx-padding: 0 0 0 15;">
+                <Button  fx:id="CategoriesBTN" text="Categories" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllCategories"/>
+                <Button  fx:id="CommunityBTN" text="Communities" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllCommunity"/>
+                <Button  fx:id="EventBTN" text="Events" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAllEvents"/>
+            </VBox>
+
+            <Button fx:id="btnAbonnements" text="Abonnements" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAbonnements"/>
+            <Button fx:id="btnGamifications" text="Gamifications" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadGamifications"/>
+            <Button fx:id="homepage" text="Home Page" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadHomepage"/>
+
+        </VBox>
+    </left>
+    <center>
+        <Text fx:id="welcomeText" text="Welcome to Syncylinky!" style="-fx-font-size: 30; -fx-fill: #1e1e1e;" />
+        <ImageView fx:id="logoImageView2" fitHeight="600" fitWidth="600" layoutX="20" layoutY="20" pickOnBounds="true" preserveRatio="true" />
+    </center>
+</BorderPane>

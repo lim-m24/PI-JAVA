@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.Line?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.Controllers.RegisterController"
+            fitToWidth="true"
+            style="-fx-background-color: white;"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED">
+
+    <content>
+        <HBox style="-fx-background-color: white;" minWidth="1100" maxWidth="1900">
+            <!-- Left side - Orange panel -->
+            <VBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: linear-gradient(to bottom right, #FF6A00, #FF9E50); -fx-padding: 30px 40px;" minWidth="400" maxWidth="700" prefWidth="500" HBox.hgrow="SOMETIMES">
+                <!-- Logo -->
+                <HBox alignment="CENTER_LEFT">
+                    <ImageView fitWidth="180" fitHeight="50" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/logo_typo_blue.png"/>
+                        </image>
+                    </ImageView>
+                </HBox>
+
+                <Region prefHeight="20" />
+
+                <!-- Title -->
+                <Text text="Create Your Account" fill="white" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+                <Text text="Sign up to get started with Syncylinky" fill="white" style="-fx-font-size: 16px; -fx-opacity: 0.9; -fx-font-family: 'Segoe UI';"/>
+
+                <!-- Login link -->
+                <HBox alignment="CENTER_LEFT" spacing="5">
+                    <Text text="Already have an account?" fill="white" style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    <Hyperlink text="Login here" onAction="#handleLoginLink"
+                               style="-fx-text-fill: #0072FF; -fx-underline: false; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+                </HBox>
+
+                <Region prefHeight="10" />
+
+                <!-- Form -->
+                <VBox spacing="15" alignment="CENTER_LEFT">
+                    <!-- Last Name / First Name -->
+                    <HBox spacing="15">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Last Name" textFill="white" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                            <TextField fx:id="lastNameField" promptText="Last name"
+                                       style="-fx-background-color: rgba(51, 55, 67, 0.7); -fx-text-fill: white; -fx-prompt-text-fill: #D3D3D3;
+                                           -fx-background-radius: 8px; -fx-pref-height: 40px; -fx-padding: 5px 15px; -fx-font-size: 13px;"/>
+                            <Text fx:id="lastNameError" text="" fill="#FF3B30" style="-fx-font-size: 11px;"/>
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="First Name" textFill="white" style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                            <TextField fx:id="firstNameField" promptText="John"
+                                       style="-fx-background-color: rgba(51, 55, 67, 0.7); -fx-text-fill: white; -fx-prompt-text-fill: #D3D3D3;
+                                           -fx-background-radius: 8px; -fx-pref-height: 40px; -fx-padding: 5px 15px; -fx-font-size: 13px;"/>
+                            <Text fx:id="firstNameError" text="" fill="#FF3B30" style="-fx-font-size: 11px;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Email -->
+                    <Label text="Email Address" textFill="white" style="-fx-font-weight: bold; -fx-padding: 5px 0 0 0; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    <TextField fx:id="emailField" promptText="john.doe@example.com"
+                               style="-fx-background-color: rgba(51, 55, 67, 0.7); -fx-text-fill: white; -fx-prompt-text-fill: #D3D3D3;
+                                     -fx-background-radius: 8px; -fx-pref-height: 40px; -fx-padding: 5px 15px; -fx-font-size: 13px;"
+                               maxWidth="450"/>
+                    <Text fx:id="emailError" text="" fill="#FF3B30" style="-fx-font-size: 11px;"/>
+
+                    <!-- Gender -->
+                    <Label text="Gender" textFill="white" style="-fx-font-weight: bold; -fx-padding: 5px 0 0 0; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: rgba(51, 55, 67, 0.5); -fx-background-radius: 8px; -fx-padding: 10px 15px;">
+                        <RadioButton fx:id="hommeRadio" text="Homme" textFill="white" userData="Homme"
+                                     style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                        <RadioButton fx:id="femmeRadio" text="Femme" textFill="white" userData="Femme"
+                                     style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                        <RadioButton fx:id="autreRadio" text="Autre" textFill="white" userData="Autre"
+                                     style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                    </HBox>
+                    <Text fx:id="genderError" text="" fill="#FF3B30" style="-fx-font-size: 11px;"/>
+
+                    <!-- Date of Birth -->
+                    <Label text="Date of Birth" textFill="white" style="-fx-font-weight: bold; -fx-padding: 5px 0 0 0; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: rgba(51, 55, 67, 0.5); -fx-background-radius: 8px; -fx-padding: 10px 15px;">
+                        <ComboBox fx:id="dayCombo" promptText="Day" prefWidth="90"
+                                  style="-fx-background-color: rgba(51, 55, 67, 0.8); -fx-text-fill: white; -fx-prompt-text-fill: #D3D3D3;
+                                      -fx-background-radius: 5px; -fx-pref-height: 35px;"/>
+                        <ComboBox fx:id="monthCombo" promptText="Month" prefWidth="130"
+                                  style="-fx-background-color: rgba(51, 55, 67, 0.8); -fx-text-fill: white; -fx-prompt-text-fill: #D3D3D3;
+                                      -fx-background-radius: 5px; -fx-pref-height: 35px;"/>
+                        <ComboBox fx:id="yearCombo" promptText="Year" prefWidth="100"
+                                  style="-fx-background-color: rgba(51, 55, 67, 0.8); -fx-text-fill: white; -fx-prompt-text-fill: #D3D3D3;
+                                      -fx-background-radius: 5px; -fx-pref-height: 35px;"/>
+                    </HBox>
+                    <Text fx:id="birthDateError" text="" fill="#FF3B30" style="-fx-font-size: 11px;"/>
+
+                    <!-- Password -->
+                    <Label text="Password" textFill="white" style="-fx-font-weight: bold; -fx-padding: 5px 0 0 0; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    <PasswordField fx:id="passwordField"
+                                   style="-fx-background-color: rgba(51, 55, 67, 0.7); -fx-text-fill: white; -fx-prompt-text-fill: #D3D3D3;
+                                       -fx-background-radius: 8px; -fx-pref-height: 40px; -fx-padding: 5px 15px; -fx-font-size: 13px;"
+                                   maxWidth="450"/>
+                    <Text fx:id="passwordError" text="" fill="#FF3B30" style="-fx-font-size: 11px;"/>
+
+                    <!-- Password requirements -->
+                    <VBox spacing="5" style="-fx-padding: 10px 15px; -fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 8px;" maxWidth="450">
+                        <Label text="Password must contain:" textFill="white" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-font-family: 'Segoe UI';"/>
+                        <HBox spacing="20">
+                            <VBox spacing="5">
+                                <Label text="• At least 8 characters" textFill="white" style="-fx-font-size: 12px; -fx-font-family: 'Segoe UI';"/>
+                                <Label text="• One uppercase letter" textFill="white" style="-fx-font-size: 12px; -fx-font-family: 'Segoe UI';"/>
+                                <Label text="• One lowercase letter" textFill="white" style="-fx-font-size: 12px; -fx-font-family: 'Segoe UI';"/>
+                            </VBox>
+                            <VBox spacing="5">
+                                <Label text="• One number" textFill="white" style="-fx-font-size: 12px; -fx-font-family: 'Segoe UI';"/>
+                                <Label text="• One special character (@$!%*?&amp;)" textFill="white" style="-fx-font-size: 12px; -fx-font-family: 'Segoe UI';"/>
+                            </VBox>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Confirm Password -->
+                    <Label text="Confirm Password" textFill="white" style="-fx-font-weight: bold; -fx-padding: 5px 0 0 0; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    <PasswordField fx:id="confirmPasswordField"
+                                   style="-fx-background-color: rgba(51, 55, 67, 0.7); -fx-text-fill: white; -fx-prompt-text-fill: #D3D3D3;
+                                       -fx-background-radius: 8px; -fx-pref-height: 40px; -fx-padding: 5px 15px; -fx-font-size: 13px;"
+                                   maxWidth="450"/>
+                    <Text fx:id="confirmPasswordError" text="" fill="#FF3B30" style="-fx-font-size: 11px;"/>
+
+                    <!-- Interests -->
+                    <Label text="Centres d'intérêt" textFill="white" style="-fx-font-weight: bold; -fx-padding: 15px 0 0 0; -fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    <Label text="Sélectionnez vos centres d'intérêt (3 minimum)" textFill="white" style="-fx-font-size: 13px; -fx-font-family: 'Segoe UI';"/>
+
+                    <!-- Container for interest images -->
+                    <FlowPane fx:id="interestsPane"
+                              hgap="15"
+                              vgap="15"
+                              alignment="CENTER_LEFT"
+                              maxWidth="450"
+                              style="-fx-padding: 15px; -fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 8px;">
+                        <!-- Images will be loaded dynamically from the controller -->
+                    </FlowPane>
+                    <Text fx:id="interestsError" text="" fill="#000000" style="-fx-font-size: 11px;"/>
+
+                    <!-- Terms checkbox -->
+                    <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 10px 0;">
+                        <CheckBox fx:id="termsCheckBox" style="-fx-text-fill: white;"/>
+                        <Label text="I agree to the Terms of Service and Privacy Policy" textFill="white" style="-fx-font-size: 13px; -fx-font-family: 'Segoe UI';"/>
+                    </HBox>
+                    <Text fx:id="termsError" text="" fill="#000000" style="-fx-font-size: 11px;"/>
+
+                    <!-- Register button -->
+                    <Button fx:id="registerButton" text="Create Account" onAction="#handleRegister"
+                            style="-fx-background-color: #304FFE; -fx-text-fill: white; -fx-font-weight: bold;
+                                 -fx-pref-height: 45px; -fx-background-radius: 8px; -fx-padding: 8px; -fx-font-size: 14px;
+                                 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);"
+                            maxWidth="450"/>
+                </VBox>
+
+                <Region prefHeight="15" />
+
+                <!-- Separator -->
+                <HBox alignment="CENTER_LEFT" spacing="15" maxWidth="450">
+                    <Line endX="50" style="-fx-stroke: white; -fx-opacity: 0.6;"/>
+                    <Text text="Or continue with" fill="white" style="-fx-opacity: 0.9; -fx-font-family: 'Segoe UI';"/>
+                    <Line endX="50" style="-fx-stroke: white; -fx-opacity: 0.6;"/>
+                </HBox>
+
+                <!-- Social buttons -->
+                <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 10px 0;">
+                    <Button style="-fx-background-color: rgba(51, 55, 67, 0.6); -fx-border-color: transparent; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-text-fill: white; -fx-padding: 12px 20px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);">
+                        <graphic>
+                            <HBox spacing="12" alignment="CENTER">
+                                <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                    <image>
+                                        <Image url="https://img.icons8.com/ios-filled/50/FFFFFF/facebook-new.png"/>
+                                    </image>
+                                </ImageView>
+                                <Text text="Facebook" fill="white" style="-fx-font-family: 'Segoe UI';"/>
+                            </HBox>
+                        </graphic>
+                    </Button>
+
+                    <Button style="-fx-background-color: rgba(51, 55, 67, 0.6); -fx-border-color: transparent; -fx-border-radius: 8px; -fx-background-radius: 8px; -fx-text-fill: white; -fx-padding: 12px 20px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 3, 0, 0, 1);">
+                        <graphic>
+                            <HBox spacing="12" alignment="CENTER">
+                                <ImageView fitWidth="20" fitHeight="20" preserveRatio="true">
+                                    <image>
+                                        <Image url="https://img.icons8.com/ios-filled/50/FFFFFF/google-logo.png"/>
+                                    </image>
+                                </ImageView>
+                                <Text text="Google" fill="white" style="-fx-font-family: 'Segoe UI';"/>
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+
+            <!-- Right side - Blue panel -->
+            <VBox alignment="CENTER" spacing="20" style="-fx-background-color: linear-gradient(to bottom, #0072C6, #00549E); -fx-padding: 30px;" minWidth="400" maxWidth="700" prefWidth="500" HBox.hgrow="SOMETIMES">
+                <!-- Logo -->
+                <StackPane>
+                    <ImageView fitWidth="300" fitHeight="100" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/logo_typo_blue.svg"/>
+                        </image>
+                    </ImageView>
+                </StackPane>
+
+                <!-- Tagline -->
+                <Text text="Join Our Community" fill="white" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+
+                <!-- Description -->
+                <Text text="Connect with like-minded people and share your experiences in real-time."
+                      fill="white" style="-fx-font-size: 18px; -fx-text-alignment: center; -fx-wrap-text: true; -fx-font-family: 'Segoe UI';" wrappingWidth="400"/>
+
+                <!-- Illustration with improved styling -->
+                <StackPane style="-fx-padding: 20px;">
+                    <StackPane style="-fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 50%; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);"
+                               minWidth="250" minHeight="250" maxWidth="250" maxHeight="250">
+                        <ImageView fitWidth="200" fitHeight="200" preserveRatio="true">
+                            <image>
+                                <Image url="https://icons.veryicon.com/png/o/miscellaneous/phoenix-project-icon-library/registration-3.png"/>
+                            </image>
+                        </ImageView>
+                    </StackPane>
+                </StackPane>
+
+                <!-- Benefits section -->
+                <VBox spacing="15" style="-fx-padding: 20px; -fx-background-color: rgba(255,255,255,0.1); -fx-background-radius: 12px;" maxWidth="400">
+                    <Text text="Why Join Syncylinky?" fill="white" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-font-family: 'Segoe UI';"/>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Text text="✓" fill="#00FF00" style="-fx-font-size: 16px;"/>
+                        <Text text="Connect with friends and family" fill="white" style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Text text="✓" fill="#00FF00" style="-fx-font-size: 16px;"/>
+                        <Text text="Share moments that matter" fill="white" style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    </HBox>
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Text text="✓" fill="#00FF00" style="-fx-font-size: 16px;"/>
+                        <Text text="Discover communities with similar interests" fill="white" style="-fx-font-size: 14px; -fx-font-family: 'Segoe UI';"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </HBox>
+    </content>
+</ScrollPane>
