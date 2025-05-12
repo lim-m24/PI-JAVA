@@ -27,6 +27,7 @@
             <Button onAction="#navigateToFeed" text="Feed" style="-fx-text-fill: white;" />
             <Button onAction="#loadCategoriesView" text="Community" style="-fx-text-fill: white;" />
             <Button onAction="#loadUserAbonnementsView" text="Abonnement" style="-fx-text-fill: white;" />
+            <Button onAction="#loadVilleView" text="Villes" style="-fx-text-fill: white;" />
             <Label text="My community" style="-fx-text-fill: white; -fx-font-weight: bold;" />
             <Button text="Oriental" style="-fx-text-fill: white;" />
             <Button text="Pilate" style="-fx-text-fill: white;" />

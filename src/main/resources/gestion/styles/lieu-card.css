@@ -1,0 +1,97 @@
+.lieu-card {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2);
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-min-width: 300;
+    -fx-max-width: 300;
+    -fx-margin: 10;
+}
+
+.card-content {
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 5 5;
+    -fx-padding: 15;
+}
+
+.card-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}
+
+.card-description {
+    -fx-font-size: 14;
+    -fx-text-fill: #666666;
+    -fx-min-height: 60;
+    -fx-max-height: 100;
+}
+
+.card-link {
+    -fx-font-size: 14;
+    -fx-text-fill: #3498db;
+    -fx-cursor: hand;
+}
+
+.card-link:hover {
+    -fx-underline: true;
+}
+
+.button-edit {
+    -fx-background-color: #f39c12;
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+    -fx-padding: 8 15;
+    -fx-background-radius: 3;
+}
+
+.button-delete {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+    -fx-padding: 8 15;
+    -fx-background-radius: 3;
+}
+
+.button-view {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+    -fx-padding: 8 15;
+    -fx-background-radius: 3;
+}
+
+.button-download {
+    -fx-background-color: #2ecc71;
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+    -fx-padding: 8 15;
+    -fx-background-radius: 3;
+}
+
+.button-edit:hover {
+    -fx-background-color: derive(#f39c12, -10%);
+}
+
+.button-delete:hover {
+    -fx-background-color: derive(#e74c3c, -10%);
+}
+
+.button-view:hover {
+    -fx-background-color: derive(#3498db, -10%);
+}
+
+.button-download:hover {
+    -fx-background-color: derive(#2ecc71, -10%);
+}
+
+.button-favori {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFD700;
+    -fx-font-size: 18;
+    -fx-min-width: 40;
+    -fx-cursor: hand;
+}
+
+.button-favori:hover {
+    -fx-text-fill: #FFA500;
+} 

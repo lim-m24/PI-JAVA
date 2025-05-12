@@ -15,10 +15,7 @@
          <ImageView fx:id="logoImageView" fitHeight="200" fitWidth="200" layoutX="20" layoutY="20" pickOnBounds="true" preserveRatio="true" />
 
          <Button fx:id="btnUsers" text="Users" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#toggleUsersSubmenu"/>
-         <VBox fx:id="usersSubmenu" spacing="5" visible="false" managed="false" style="-fx-padding: 0 0 0 15;">
-            <Button text="Add User" style="-fx-text-fill: white; -fx-background-color: transparent;" />
-            <Button text="List Users" style="-fx-text-fill: white; -fx-background-color: transparent;" />
-         </VBox>
+
 
          <Button fx:id="btnCommunities" text="Communities" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#toggleCommunitiesSubmenu"/>
          <VBox fx:id="communitiesSubmenu" spacing="5" visible="false" managed="false" style="-fx-padding: 0 0 0 15;">
@@ -29,6 +26,7 @@
 
          <Button fx:id="btnAbonnements" text="Abonnements" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadAbonnements"/>
          <Button fx:id="btnGamifications" text="Gamifications" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadGamifications"/>
+         <Button fx:id="btnVilles" text="Villes" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadVilles"/>
          <Button fx:id="homepage" text="Home Page" style="-fx-text-fill: white; -fx-background-color: transparent;" onAction="#loadHomepage"/>
 
       </VBox>

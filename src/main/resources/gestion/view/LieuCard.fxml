@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox styleClass="lieu-card" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.LieuCardController">
+    <ImageView fx:id="coverImageView" fitWidth="300" fitHeight="200" preserveRatio="true" styleClass="card-image"/>
+    <VBox spacing="10" styleClass="card-content">
+        <padding>
+            <Insets top="15" right="15" bottom="15" left="15"/>
+        </padding>
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Label fx:id="nomLabel" styleClass="card-title" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="favoriButton" text="☆" onAction="#handleToggleFavori" styleClass="button-favori"/>
+        </HBox>
+        <Label fx:id="descriptionLabel" styleClass="card-description" wrapText="true" minHeight="60"/>
+        <Hyperlink fx:id="link3dLabel" styleClass="card-link" onAction="#handleLink3d"/>
+        <HBox spacing="10" alignment="CENTER" styleClass="card-buttons">
+            <Button fx:id="editButton" text="Modifier" onAction="#handleEdit" styleClass="button-edit"/>
+            <Button fx:id="deleteButton" text="Supprimer" onAction="#handleDelete" styleClass="button-delete"/>
+            <Button text="Voir les médias" onAction="#handleViewMedia" styleClass="button-view"/>
+            <Button text="Télécharger PDF" onAction="#handleDownloadPDF" styleClass="button-download"/>
+        </HBox>
+    </VBox>
+</VBox> 

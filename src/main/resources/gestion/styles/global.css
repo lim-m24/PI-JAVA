@@ -1,0 +1,331 @@
+/* Couleurs de la charte graphique */
+* {
+    -fx-primary-orange: #FF6F00;
+    -fx-primary-blue: #00AEEF;
+    -fx-mint-green: #2ECC71;
+    -fx-soft-black: #333333;
+    -fx-light-gray: #F2F2F2;
+    -fx-download-blue: #3498db;
+}
+
+/* Styles globaux */
+.root {
+    -fx-background-color: -fx-light-gray;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Liste des villes */
+.villes-list {
+    -fx-background-color: #1A2A44;
+    -fx-background-radius: 5;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 5;
+    -fx-border-width: 1;
+}
+
+.villes-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 15;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.villes-list .list-cell:last-visible {
+    -fx-border-width: 0;
+}
+
+.villes-list .list-cell:filled:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+.villes-list .list-cell:filled:selected {
+    -fx-background-color: #1A2A44;
+    -fx-text-fill: -fx-soft-black;
+}
+
+.ville-cell {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.ville-nom {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2196F3;
+}
+
+.ville-description {
+    -fx-font-size: 14px;
+    -fx-text-fill: #757575;
+    -fx-wrap-text: true;
+    -fx-max-width: 500px;
+}
+
+.view-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2196F3;
+    -fx-padding: 0 0 10 0;
+}
+
+/* Navbar */
+.navbar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-min-height: 60;
+}
+
+.app-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-primary-blue;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-soft-black;
+    -fx-font-weight: normal;
+    -fx-padding: 5 10;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-text-fill: -fx-primary-blue;
+}
+
+/* Titres */
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-soft-black;
+}
+
+.subtitle {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-soft-black;
+}
+
+/* Boutons */
+.button {
+    -fx-background-color: -fx-primary-blue;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+}
+
+.button:hover {
+    -fx-background-color: derive(-fx-primary-blue, -10%);
+}
+
+.button-primary {
+    -fx-background-color: -fx-primary-orange;
+}
+
+.button-primary:hover {
+    -fx-background-color: derive(-fx-primary-orange, -10%);
+}
+
+.button-secondary {
+    -fx-background-color: -fx-mint-green;
+}
+
+.button-secondary:hover {
+    -fx-background-color: derive(-fx-mint-green, -10%);
+}
+
+/* TableView */
+.table-view {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: -fx-primary-blue;
+    -fx-text-fill: white;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* ListView */
+.list-view {
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.list-cell {
+    -fx-padding: 8 16;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: -fx-primary-blue;
+    -fx-text-fill: white;
+}
+
+/* Cards */
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+    -fx-padding: 16;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: -fx-soft-black;
+}
+
+/* Text Fields */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #BDBDBD;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 8;
+}
+
+.text-field:focused {
+    -fx-border-color: -fx-primary-blue;
+}
+
+/* Search Field */
+.search-field {
+    -fx-pref-width: 250px;
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8 16;
+}
+
+.search-field:focused {
+    -fx-border-color: -fx-primary-blue;
+}
+
+/* Toggle Buttons */
+.toggle-button {
+    -fx-background-color: #4CAF50;
+    -fx-border-color: -fx-primary-blue;
+    -fx-text-fill: -fx-primary-blue;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+.toggle-button:selected {
+    -fx-background-color: -fx-primary-blue;
+    -fx-text-fill: white;
+}
+
+/* Favorite Button */
+.button-favori {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-primary-orange;
+    -fx-font-size: 16px;
+    -fx-min-width: 30px;
+}
+
+.button-favori:hover {
+    -fx-text-fill: derive(-fx-primary-orange, -10%);
+}
+
+/* Action Buttons */
+.button-edit {
+    -fx-background-color: -fx-primary-orange;
+}
+
+.button-delete {
+    -fx-background-color: #d9534f;
+}
+
+.button-view {
+    -fx-background-color: -fx-mint-green;
+}
+
+/* Bouton de téléchargement */
+.button-download {
+    -fx-background-color: -fx-download-blue;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-background-radius: 4;
+}
+
+.button-download:hover {
+    -fx-background-color: derive(-fx-download-blue, -10%);
+    -fx-cursor: hand;
+}
+
+.weather-info {
+    -fx-font-size: 12px;
+    -fx-text-fill: #666666;
+}
+
+.weather-container {
+    -fx-alignment: center-left;
+    -fx-padding: 5 0 0 0;
+}
+
+/* Dialog Styles */
+.dialog-content {
+    -fx-background-color: white;
+}
+
+.dialog-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 10 0;
+}
+
+.field-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.field-input {
+    -fx-background-color: #f5f5f5;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 4px;
+    -fx-padding: 8px;
+}
+
+.field-input:focused {
+    -fx-border-color: #4CAF50;
+    -fx-background-color: white;
+}
+
+.error-label {
+    -fx-text-fill: #f44336;
+    -fx-font-size: 12px;
+    -fx-padding: 2 0 0 0;
+    -fx-min-height: 16px;
+}
+
+.button-primary {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.button-primary:hover {
+    -fx-background-color: #45a049;
+}
+
+.button-secondary {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: #333333;
+    -fx-border-color: #cccccc;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #e0e0e0;
+} 

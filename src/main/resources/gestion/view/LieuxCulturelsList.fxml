@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.Controllers.LieuxCulturelsListController">
+   <children>
+      <VBox spacing="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <padding>
+            <Insets bottom="10" left="10" right="10" top="10"/>
+         </padding>
+         <HBox alignment="CENTER_LEFT" spacing="10">
+            <Label fx:id="titleLabel" styleClass="page-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Voir les lieux favoris" onAction="#showFavoriteLieux" styleClass="button-view"/>
+            <Button text="Ajouter un lieu culturel" onAction="#showAddDialog" styleClass="button-view"/>
+         </HBox>
+         
+         <TableView fx:id="lieuTable" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+                <TableColumn fx:id="nomColumn" text="Nom" prefWidth="200"/>
+                <TableColumn fx:id="descriptionColumn" text="Description" prefWidth="300"/>
+                <TableColumn fx:id="link3dColumn" text="Lien 3D" prefWidth="150"/>
+                <TableColumn fx:id="actionsColumn" text="Actions" prefWidth="200"/>
+            </columns>
+         </TableView>
+      </VBox>
+   </children>
+</AnchorPane> 

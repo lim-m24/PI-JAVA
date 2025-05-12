@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="tn.esprit.Controllers.LieuCulturelDialogController"
+          hgap="10" vgap="10">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Nom:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <TextField fx:id="nomField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+    <Label text="Description:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <TextArea fx:id="descriptionField" GridPane.columnIndex="1" GridPane.rowIndex="1"
+              prefRowCount="3" wrapText="true"/>
+
+    <Label text="Lien 3D:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <TextField fx:id="link3dField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <Label text="Image:" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+    <VBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <ImageView fx:id="imagePreview" fitHeight="150" fitWidth="200" preserveRatio="true"/>
+        <Button text="Choisir une image" onAction="#handleChooseImage"/>
+        <Label fx:id="imagePathLabel" wrapText="true"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Button text="Enregistrer" onAction="#handleSave" defaultButton="true"/>
+        <Button text="Annuler" onAction="#handleCancel" cancelButton="true"/>
+    </HBox>
+</GridPane> 

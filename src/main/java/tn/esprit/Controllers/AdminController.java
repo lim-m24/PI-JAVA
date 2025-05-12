@@ -49,6 +49,10 @@ public class AdminController {
     private Button EventBTN;
     @FXML
     private Button UserBTN;
+    @FXML
+    private Button btnVilles;
+    @FXML
+    private Button homepage;
 
     @FXML
     private Text welcomeText;
@@ -134,12 +138,22 @@ public class AdminController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void loadVilles() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestion/view/VilleView.fxml"));
+            Node villeView = loader.load();
+            mainBorderPane.setCenter(villeView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void loadHomepage(ActionEvent event) {
         try {
             // Load the communityFront.fxml file
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/HomeFront.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/user/FrontOffice.fxml"));
             Parent communityRoot = loader.load();
             Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(communityRoot);

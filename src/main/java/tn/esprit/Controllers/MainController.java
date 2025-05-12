@@ -60,6 +60,8 @@ public class MainController implements Initializable {
     private BorderPane mainBorderPane;
 
     @FXML
+    private StackPane mainStackPane;
+    @FXML
     private Button viewButton;
 
     private User currentUser;
@@ -163,6 +165,17 @@ public class MainController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AllCommunity.fxml"));
             Node communityView = loader.load();
             mainBorderPane.setCenter(communityView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void loadVilleView() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestion/view/UserVilleView.fxml"));
+            Node villeView = loader.load();
+            FrontBorderpane.setCenter(villeView);
         } catch (IOException e) {
             e.printStackTrace();
         }

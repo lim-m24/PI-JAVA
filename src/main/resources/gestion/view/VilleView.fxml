@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.Controllers.VilleController"
+      spacing="0"
+      styleClass="root">
+      
+    <fx:include source="components/Navbar.fxml"/>
+    
+    <StackPane VBox.vgrow="ALWAYS">
+        <!-- Liste des villes -->
+        <VBox fx:id="villesListBox" spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Gestion des Villes" styleClass="title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchField" promptText="Rechercher une ville..." styleClass="search-field"/>
+                <Button text="Ajouter une ville" onAction="#showAddDialog" styleClass="button-primary"/>
+            </HBox>
+            
+            <ListView fx:id="villeListView" VBox.vgrow="ALWAYS" styleClass="villes-list"/>
+        </VBox>
+        
+        <!-- Détails de la ville sélectionnée -->
+        <VBox fx:id="villeDetailsBox" spacing="10" visible="false">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Button text="← Retour à la liste" onAction="#handleRetourListe" styleClass="button-secondary"/>
+                <VBox>
+                    <Label fx:id="villeNameLabel" styleClass="ville-title"/>
+                    <HBox fx:id="weatherContainer" spacing="10" styleClass="weather-container">
+                        <ImageView fx:id="weatherIcon" fitHeight="20" fitWidth="20" preserveRatio="true"/>
+                        <Label fx:id="weatherInfo" styleClass="weather-info"/>
+                    </HBox>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="Modifier" onAction="#handleEdit" styleClass="button-edit"/>
+                <Button text="Supprimer" onAction="#handleDelete" styleClass="button-delete"/>
+            </HBox>
+            
+            <Label fx:id="villeDescriptionLabel" styleClass="ville-description" wrapText="true"/>
+            <Label fx:id="villePositionLabel" styleClass="ville-position"/>
+            
+            <!-- Liste des lieux culturels -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Lieux Culturels" styleClass="section-title"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="searchLieuField" promptText="Rechercher un lieu culturel..." styleClass="search-field"/>
+                <Button text="Ajouter un lieu" onAction="#showAddLieuDialog" styleClass="button-primary"/>
+            </HBox>
+            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+                <FlowPane fx:id="lieuxContainer" hgap="10" vgap="10">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                </FlowPane>
+            </ScrollPane>
+        </VBox>
+    </StackPane>
+</VBox> 

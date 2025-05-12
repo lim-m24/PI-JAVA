@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.Controllers.VilleDialogController"
+      spacing="10"
+      styleClass="dialog-content">
+    
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <Label text="Ajouter/Modifier une ville" styleClass="dialog-title"/>
+
+    <VBox spacing="5">
+        <Label text="Nom:" styleClass="field-label"/>
+        <TextField fx:id="nomField" styleClass="field-input"/>
+        <Label fx:id="nomErrorLabel" styleClass="error-label"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Description:" styleClass="field-label"/>
+        <TextArea fx:id="descriptionField" prefRowCount="3" wrapText="true" styleClass="field-input"/>
+        <Label fx:id="descriptionErrorLabel" styleClass="error-label"/>
+    </VBox>
+
+    <VBox spacing="5">
+        <Label text="Position (latitude,longitude):" styleClass="field-label"/>
+        <TextField fx:id="positionField" styleClass="field-input"/>
+        <Label fx:id="positionErrorLabel" styleClass="error-label"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Enregistrer" onAction="#handleSave" defaultButton="true" styleClass="button-primary"/>
+        <Button text="Annuler" onAction="#handleCancel" cancelButton="true" styleClass="button-secondary"/>
+    </HBox>
+</VBox> 
