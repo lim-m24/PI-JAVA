@@ -25,7 +25,6 @@
     <left>
         <VBox spacing="10" style="-fx-background-color: #1A2A44; -fx-padding: 10;">
             <Button onAction="#navigateToFeed" text="Feed" style="-fx-text-fill: white;" />
-            <Button text="Messages" style="-fx-text-fill: white;" />
             <Button onAction="#loadCategoriesView" text="Community" style="-fx-text-fill: white;" />
             <Button onAction="#loadUserAbonnementsView" text="Abonnement" style="-fx-text-fill: white;" />
             <Label text="My community" style="-fx-text-fill: white; -fx-font-weight: bold;" />

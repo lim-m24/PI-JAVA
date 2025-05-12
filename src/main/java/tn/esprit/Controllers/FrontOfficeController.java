@@ -77,9 +77,6 @@ public class FrontOfficeController {
         if (!feedBox.getChildren().isEmpty()) {
             newPostBox = (VBox) feedBox.getChildren().get(0);
         }
-
-        // Charger les publications
-        loadPosts();
     }
 
     public void updateUserInfo(User user) {
@@ -89,39 +86,7 @@ public class FrontOfficeController {
         emailLabel.setText(user.getEmail());
     }
 
-    private void loadPosts() {
-        feedBox.getChildren().clear(); // Nettoyer les anciennes publications
-        if (newPostBox != null) {
-            feedBox.getChildren().add(newPostBox); // Réajouter la zone de création de publication
-        }
-        List<Post> posts = postService.getPosts();
-        for (Post post : posts) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/components/PostCard.fxml"));
-                VBox postCard = loader.load();
-                PostCardController controller = loader.getController();
-                controller.setPost(post);
-                feedBox.getChildren().add(postCard);
-            } catch (IOException e) {
-                showAlert("Error", "Could not load post card: " + e.getMessage(), Alert.AlertType.ERROR);
-                e.printStackTrace();
-            }
-        }
-    }
 
-    @FXML
-    private void handleNewPost() {
-        String content = newPostField.getText().trim();
-        if (content.isEmpty()) {
-            showAlert("Error", "Post content cannot be empty", Alert.AlertType.ERROR);
-            return;
-        }
-
-        Post newPost = new Post(currentUser.getFirstname(), LocalDateTime.now(), content);
-        postService.addPost(newPost);
-        newPostField.clear();
-        loadPosts(); // Recharger les publications
-    }
 
     @FXML
     private void toggleUserMenu(MouseEvent event) {
@@ -130,11 +95,6 @@ public class FrontOfficeController {
         } else {
             userMenu.show(userProfileBox, event.getScreenX(), event.getScreenY());
         }
-    }
-
-    @FXML
-    private void navigateToFeed() {
-        loadPosts();
     }
 
     @FXML

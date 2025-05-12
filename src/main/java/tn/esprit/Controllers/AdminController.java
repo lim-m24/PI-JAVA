@@ -49,6 +49,7 @@ public class AdminController {
     private Button EventBTN;
     @FXML
     private Button UserBTN;
+
     @FXML
     private Text welcomeText;
 

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.Controllers.FeedController"
+            prefHeight="400.0" prefWidth="600.0">
+    <ScrollPane fitToWidth="true" style="-fx-background-color: #1C2526; -fx-background: #1C2526; -fx-border-color: transparent;">
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 30px 20px;">
+            <!-- Zone pour Créer une Publication -->
+            <VBox spacing="15" style="-fx-background-color: #2C3E50; -fx-background-radius: 15px; -fx-padding: 20px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" prefWidth="550" maxWidth="600">
+                <Label text="Create Post" style="-fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-font-size: 16px;"/>
+                <TextField fx:id="newPostField" promptText="What's on your mind?"
+                           style="-fx-background-color: #34495E; -fx-text-fill: #FFFFFF; -fx-prompt-text-fill: #9CA0AA; -fx-background-radius: 10px; -fx-padding: 10px;"
+                           prefWidth="480"/>
+                <HBox spacing="10">
+                    <Button text="📷 Photo"
+                            style="-fx-background-color: #34495E; -fx-text-fill: #FFFFFF; -fx-background-radius: 5px;"
+                            HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets top="8" right="15" bottom="8" left="15"/>
+                        </padding>
+                    </Button>
+                    <Button text="📍 Location"
+                            style="-fx-background-color: #34495E; -fx-text-fill: #FFFFFF; -fx-background-radius: 5px;"
+                            HBox.hgrow="ALWAYS">
+                        <padding>
+                            <Insets top="8" right="15" bottom="8" left="15"/>
+                        </padding>
+                    </Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Post" onAction="#handleNewPost"
+                            style="-fx-background-color: #FF6200; -fx-text-fill: #FFFFFF; -fx-font-weight: bold; -fx-background-radius: 5px;"
+                            HBox.hgrow="NEVER">
+                        <padding>
+                            <Insets top="8" right="25" bottom="8" left="25"/>
+                        </padding>
+                    </Button>
+                </HBox>
+            </VBox>
+            <!-- Conteneur pour le Feed -->
+            <VBox fx:id="feedContainer" alignment="CENTER" spacing="10"/>
+            <!-- Conteneur pour les Publications Recommandées -->
+            <VBox fx:id="recommendedContainer" alignment="CENTER" spacing="10"/>
+            <!-- Indicateur de Chargement -->
+            <ProgressIndicator fx:id="loadingIndicator" visible="false"/>
+            <!-- Bouton Retour -->
+            <Button fx:id="backButton" text="Retour" onAction="#handleBack" disable="true"/>
+            <!-- Bouton Recommandations -->
+            <Button fx:id="recommendedButton" text="Voir Recommandations" onAction="#handleShowRecommended"/>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

@@ -1,16 +1,20 @@
 package tn.esprit.utils;
 
+import org.slf4j.LoggerFactory;
 import tn.esprit.Models.User;
 import tn.esprit.Services.UserService;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class SessionManager {
     private static SessionManager instance;
     private Map<String, Object> sessionAttributes;
     private User currentUser;
     private UserService userService;
+    private static User currentUsers;
+
 
     private SessionManager() {
         this.sessionAttributes = new HashMap<>();
@@ -70,6 +74,12 @@ public class SessionManager {
     public void logout() {
         this.currentUser = null;
         this.sessionAttributes.clear();
+    }
+    public static synchronized int getCurrentUserId() {
+        if (currentUsers == null) {
+            throw new IllegalStateException("No user is currently logged in");
+        }
+        return currentUsers.getId();
     }
 
     public boolean isLoggedIn() {

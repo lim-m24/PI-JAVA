@@ -1,8 +1,9 @@
 package tn.esprit.Models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class Post {
+public class PostDTO {
     private int id;
     private Integer userId;
     private String content;
@@ -11,9 +12,21 @@ public class Post {
     private String visibility;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;
+    private List<Comment> comments;
+    private int likeCount;
+    private List<Share> shares;
 
-    // Constructeur par défaut
-    public Post() {}
+    // Constructeur à partir d'un Post
+    public PostDTO(Post post) {
+        this.id = post.getId();
+        this.userId = post.getUserId();
+        this.content = post.getContent();
+        this.file = post.getFile();
+        this.titre = post.getTitre();
+        this.visibility = post.getVisibility();
+        this.createdAt = post.getCreatedAt();
+        this.updateAt = post.getUpdateAt();
+    }
 
     // Getters et setters
     public int getId() {
@@ -78,5 +91,29 @@ public class Post {
 
     public void setUpdateAt(LocalDateTime updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public List<Share> getShares() {
+        return shares;
+    }
+
+    public void setShares(List<Share> shares) {
+        this.shares = shares;
     }
 }

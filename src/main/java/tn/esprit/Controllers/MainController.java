@@ -1,5 +1,7 @@
 package tn.esprit.Controllers;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import tn.esprit.Models.Post;
@@ -24,6 +26,7 @@ import tn.esprit.utils.SessionManager;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -133,23 +136,6 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void navigateToFeed() {
-        loadPosts();
-    }
-    private void loadPosts() {
-        List<Post> posts = postService.getPosts();
-        for (Post post : posts) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/components/PostCard.fxml"));
-                VBox postCard = loader.load();
-                PostCardController controller = loader.getController();
-                controller.setPost(post);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    @FXML
     public void loadUserAbonnementsView() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserAbonnementsView.fxml"));
@@ -160,6 +146,17 @@ public class MainController implements Initializable {
             showAlert("Error", "Cannot load user abonnements view: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+    @FXML
+    private void navigateToFeed() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fill.fxml"));
+            Node communityView = loader.load();
+            mainBorderPane.setCenter(communityView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     public void loadComunnity() {
         try {

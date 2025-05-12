@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+        <?import javafx.scene.control.*?>
+        <?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.syncylinky.controllers.CommentController" spacing="10" alignment="CENTER_LEFT"
+      styleClass="comment-container">
+    <padding>
+        <Insets top="5" right="5" bottom="5" left="5"/>
+    </padding>
+
+    <!-- Contenu du commentaire -->
+    <VBox spacing="5" HBox.hgrow="ALWAYS">
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label fx:id="usernameLabel" styleClass="username-label"/>
+            <Label fx:id="timestampLabel" styleClass="timestamp-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="menuButton" text="..." styleClass="menu-button" onAction="#showCommentOptionsMenu"/>
+        </HBox>
+        <Label fx:id="commentLabel" wrapText="true" styleClass="content-text"/>
+    </VBox>
+</HBox>
